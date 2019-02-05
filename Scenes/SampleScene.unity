@@ -761,11 +761,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9ae42b7cc80c7b46945ddb9d52a6464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boundaryHolder: {fileID: 0}
   yPush: 15
   randomFactor: 0.2
   maxSpeed: 20
   arrow: {fileID: 826718215}
+  moveSpeed: 10
+  turnSpeed: -100
 --- !u!212 &2003097138
 SpriteRenderer:
   m_ObjectHideFlags: 0

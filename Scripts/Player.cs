@@ -15,17 +15,18 @@ public class Player : MonoBehaviour
     // nullable int
     public int? LockedFingerID { get; set; }
 
-    private float speed = -50f;
 
     public GameObject arrow;
     private bool hasStarted = false;
+    public float moveSpeed = 10f;
+    public float turnSpeed = -100f;
 
 
     void FixedUpdate()
     {
-        //  transform.Rotate(0, 0, Input.GetAxis("Horizontal") * speed * Time.deltaTime);
-        rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxSpeed);
-        rb.transform.Rotate(0,0,Input.GetAxis("Horizontal")*speed*Time.deltaTime);
+          transform.Rotate(0, 0, Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime);
+       // rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxSpeed);
+      //  transform.Rotate(Vector3.forward,0,Input.GetAxis("Horizontal")*speed*Time.deltaTime);
     }
 
 
@@ -42,8 +43,22 @@ public class Player : MonoBehaviour
     void Update()
     {
             LaunchOnMouseClick();
-        
+
         // transform.Rotate(0, Input.GetAxis("Horizontal") * speed * Time.deltaTime, 0);
+       /* if (Input.GetKey(KeyCode.UpArrow))
+            transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+
+        if (Input.GetKey(KeyCode.DownArrow))
+            transform.Translate(-Vector3.forward * moveSpeed * Time.deltaTime);
+
+        if (Input.GetKey(KeyCode.LeftArrow))
+            transform.Rotate(0,0, -turnSpeed * Time.deltaTime);
+
+        if (Input.GetKey(KeyCode.RightArrow))
+            transform.Rotate(0,0, turnSpeed * Time.deltaTime);
+            */
+        Debug.Log(transform.rotation.z);
+
 
     }
 
@@ -53,7 +68,13 @@ public class Player : MonoBehaviour
         {
             if (!hasStarted)
             {
-                rb.velocity = new Vector2(0, yPush);
+              //  rb.velocity = new Vector2(2, yPush);
+               // rb.velocity = new Vector2(Mathf.Cos(transform.rotation.z), Mathf.Sin(transform.rotation.z)*moveSpeed);
+                float fRotation = rb.rotation * Mathf.Deg2Rad;
+                float fX = Mathf.Sin(fRotation);
+                float fY = Mathf.Cos(fRotation);
+                Vector2 v2 = new Vector2(fY*moveSpeed, fX*moveSpeed);
+                rb.velocity = v2;
                 arrow.SetActive(false);
                 hasStarted = true;
             } else
