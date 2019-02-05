@@ -41,10 +41,8 @@ public class Player : MonoBehaviour
     
     void Update()
     {
-        if (!hasStarted)
-        {
             LaunchOnMouseClick();
-        }
+        
         // transform.Rotate(0, Input.GetAxis("Horizontal") * speed * Time.deltaTime, 0);
 
     }
@@ -53,9 +51,18 @@ public class Player : MonoBehaviour
     {
         if (Input.GetButtonDown("Submit"))
         {
-            rb.velocity = new Vector2(0, yPush);
-            arrow.SetActive(false);
-            hasStarted = true;
+            if (!hasStarted)
+            {
+                rb.velocity = new Vector2(0, yPush);
+                arrow.SetActive(false);
+                hasStarted = true;
+            } else
+            {
+                rb.velocity = new Vector2(0, 0);
+                arrow.SetActive(true);
+                hasStarted = false;
+            }
+          
         }
 
     }
