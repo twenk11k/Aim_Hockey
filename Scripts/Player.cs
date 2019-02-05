@@ -1,0 +1,67 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Player : MonoBehaviour
+{
+    Rigidbody2D rb;
+    Vector2 startingPosition;
+    public Transform boundaryHolder;
+    Boundary playerBoundary;
+    public Collider2D PlayerCollider { get; private set; }
+
+
+    // nullable int
+    public int? LockedFingerID { get; set; }
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        startingPosition = rb.position;
+        PlayerCollider = GetComponent<Collider2D>();
+        playerBoundary = new Boundary(boundaryHolder.GetChild(0).position.y
+                   , boundaryHolder.GetChild(1).position.y
+                   , boundaryHolder.GetChild(2).position.x
+                   , boundaryHolder.GetChild(3).position.x
+                   );
+    }
+    public void MoveToPosition(Vector2 position)
+    {
+        Vector2 clampedMousePos = new Vector2(Mathf.Clamp(position.x, playerBoundary.Left,
+            playerBoundary.Right), Mathf.Clamp(position.y, playerBoundary.Down, playerBoundary.Up));
+
+        rb.MovePosition(clampedMousePos);
+    }
+    void Update()
+    {
+        for (int i = 0; i < Input.touchCount; i++)
+        {
+            Vector2 touchWorldPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position);
+                if (LockedFingerID == null)
+                {
+                    if (Input.GetTouch(i).phase == TouchPhase.Began
+                        && PlayerCollider.OverlapPoint(touchWorldPos))
+                    {
+                        LockedFingerID = Input.GetTouch(i).fingerId;
+                    }
+                }
+                else if (LockedFingerID == Input.GetTouch(i).fingerId)
+                {
+                    MoveToPosition(touchWorldPos);
+                    if (Input.GetTouch(i).phase == TouchPhase.Ended ||
+                        Input.GetTouch(i).phase == TouchPhase.Canceled)
+                    {
+                        LockedFingerID = null;
+                    }
+                }
+            
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+           // SceneManager.LoadScene("Menu");
+        }
+
+
+    }
+
+}
