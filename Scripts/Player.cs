@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-
+using UnityStandardAssets.CrossPlatformInput;
 public class Player : MonoBehaviour
 {
     Rigidbody2D rb;
@@ -17,17 +17,13 @@ public class Player : MonoBehaviour
 
 
     public GameObject arrow;
+    public GameObject player;
+
     private bool hasStarted = false;
     public float moveSpeed = 10f;
     public float turnSpeed = -100f;
 
-
-    void FixedUpdate()
-    {
-          transform.Rotate(0, 0, Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime);
-       // rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxSpeed);
-      //  transform.Rotate(Vector3.forward,0,Input.GetAxis("Horizontal")*speed*Time.deltaTime);
-    }
+    int totalSizePucks;
 
 
     // Start is called before the first frame update
@@ -36,31 +32,50 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         startingPosition = rb.position;
         PlayerCollider = GetComponent<Collider2D>();
-       
+        totalSizePucks = Random.Range(5,8);
+        Debug.Log("transform position x is : "+ transform.position.x);
+        for(int i=0; i<totalSizePucks; i++)
+        {
+               Vector3 vector3 = new Vector3(transform.position.x + Random.Range(-2.21f, 2.21f), transform.position.y + Random.Range(-1.7f, -0.7f), transform.position.z);
+
+            GameObject player1 = Instantiate(player, vector3, transform.rotation);
+        }
     }
-   
-    
+
+
+
     void Update()
     {
-            LaunchOnMouseClick();
-
-        // transform.Rotate(0, Input.GetAxis("Horizontal") * speed * Time.deltaTime, 0);
-       /* if (Input.GetKey(KeyCode.UpArrow))
-            transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
-
-        if (Input.GetKey(KeyCode.DownArrow))
-            transform.Translate(-Vector3.forward * moveSpeed * Time.deltaTime);
-
-        if (Input.GetKey(KeyCode.LeftArrow))
-            transform.Rotate(0,0, -turnSpeed * Time.deltaTime);
-
-        if (Input.GetKey(KeyCode.RightArrow))
-            transform.Rotate(0,0, turnSpeed * Time.deltaTime);
-            */
-        Debug.Log(transform.rotation.z);
-
-
+        LaunchOnMouseClick();
     }
+    void FixedUpdate()
+    {
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
+        {
+            var touchDeltaPosition = Input.GetTouch(0).deltaPosition;
+            //   transform.Translate(-touchDeltaPosition.x * Time.deltaTime * moveSpeed,
+            //            -touchDeltaPosition.y * Time.deltaTime * moveSpeed, 0);
+            //  var xpos = Mathf.Clamp(transform.position.x + ((touchDeltaPosition.x * Time.deltaTime * moveSpeed) / 10), xMin, xMax);
+            //  var ypos = Mathf.Clamp(transform.position.y + ((touchDeltaPosition.y * Time.deltaTime * moveSpeed) / 10), yMin, yMax);
+            //  transform.position = new Vector2(xpos, ypos);
+           // Debug.Log(Mathf.Clamp(transform.position.x + ((touchDeltaPosition.x * Time.deltaTime * moveSpeed),-1,1)));
+            transform.Rotate(0, 0, Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime);
+        }
+        else
+        {
+            
+
+        }
+        Debug.Log(Input.GetAxis("Horizontal"));
+
+        transform.Rotate(0, 0, Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime);
+
+        // rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxSpeed);
+        //  transform.Rotate(Vector3.forward,0,Input.GetAxis("Horizontal")*speed*Time.deltaTime);
+    }
+
+
+
 
     private void LaunchOnMouseClick()
     {
@@ -68,8 +83,6 @@ public class Player : MonoBehaviour
         {
             if (!hasStarted)
             {
-              //  rb.velocity = new Vector2(2, yPush);
-               // rb.velocity = new Vector2(Mathf.Cos(transform.rotation.z), Mathf.Sin(transform.rotation.z)*moveSpeed);
                 float fRotation = rb.rotation * Mathf.Deg2Rad;
                 float fX = Mathf.Sin(fRotation);
                 float fY = Mathf.Cos(fRotation);
