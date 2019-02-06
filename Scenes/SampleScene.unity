@@ -765,8 +765,11 @@ MonoBehaviour:
   randomFactor: 0.2
   maxSpeed: 20
   arrow: {fileID: 826718215}
+  player: {fileID: 3711301072759443172, guid: 003f2d91337f6b047baa27f2e6290173, type: 3}
   moveSpeed: 10
   turnSpeed: -100
+  turnSpeedTouch: -1000
+  offset: 180
 --- !u!212 &2003097138
 SpriteRenderer:
   m_ObjectHideFlags: 0
