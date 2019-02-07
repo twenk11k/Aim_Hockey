@@ -166,6 +166,7 @@ public class PlayerManagement : MonoBehaviour
 
                     hasStarted = true;
                     isMoved = true;
+
                     PickNewPlayer();
                 }
                 else
@@ -176,8 +177,27 @@ public class PlayerManagement : MonoBehaviour
             }
             else
             {
-                secilmisPlayer.rb.velocity = new Vector2(0, 0);
-                secilmisPlayer.arrow.SetActive(true);
+                if (pickedPlayer.arrow.activeSelf)
+                {
+                    float fRotation = secilmisPlayer.rb.rotation * Mathf.Deg2Rad;
+                    float fX = Mathf.Sin(fRotation);
+                    float fY = Mathf.Cos(fRotation);
+                    Vector2 v2 = new Vector2(fY * 10, fX * 10);
+                    Debug.Log("the vector2:" + v2);
+
+                    secilmisPlayer.rb.velocity = v2;
+                    Debug.Log("secilmisPlayer rb velocity:" + secilmisPlayer.rb.velocity);
+
+                    secilmisPlayer.arrow.SetActive(false);
+                    PickNewPlayer();
+
+                }
+                else
+                {
+                    secilmisPlayer.rb.velocity = new Vector2(0, 0);
+                    secilmisPlayer.arrow.SetActive(true);
+                }
+              
                 hasStarted = false;
             }
         }
