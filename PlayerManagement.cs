@@ -22,7 +22,8 @@ public class PlayerManagement : MonoBehaviour
     void Start()
     {
         blockY = block.transform.position.y;
-        totalSizePucks = Random.Range(2, 4);
+        totalSizePucks = Random.Range(2, 3);
+        
         for (int i=0; i<totalSizePucks; i++)
         {
             Vector3 vector3 = new Vector3(transform.position.x + Random.Range(-2.21f, 2.21f), transform.position.y + Random.Range(-1.7f, -0.7f), transform.position.z);
@@ -31,6 +32,7 @@ public class PlayerManagement : MonoBehaviour
         }
         ChoosePlayer();
     }
+    private bool isAnimPlayed = false;
     // Update is called once per frame
     void Update()
     {
@@ -45,15 +47,30 @@ public class PlayerManagement : MonoBehaviour
             }
         } 
         if(isAllPucksAboveBlock()){
-            Debug.Log("if");
             isPickedInAbove();
         }
-
+        if(isAllPucksAboveBlock() && !isAnimPlayed)
+        {
+            Debug.Log("orama");
+            block.GetComponent<Animation>().Play();
+            isAnimPlayed = true;
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             SceneManager.LoadScene("SampleScene");
         }
 
+    }
+    private bool isAllPucksAboveBlock()
+    {
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            if (playerList[i].transform.position.y < blockY)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void isPickedInAbove()
@@ -194,7 +211,6 @@ public class PlayerManagement : MonoBehaviour
         if (!isFound)
         {
             isFinished = true;
-
         } else
         {
             isFinished = false;
@@ -206,18 +222,7 @@ public class PlayerManagement : MonoBehaviour
 
    
 
-    private bool isAllPucksAboveBlock()
-    {
-        for(int i=0; i<playerList.Count; i++)
-        {
-            if (playerList[i].transform.position.y < blockY)
-            {
-                return false;
-            } 
-        }
-        return true;
-    }
-
+ 
     private void LaunchOnMouseClick(Player secilmisPlayer)
     {
         // Mouse click 
