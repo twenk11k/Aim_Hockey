@@ -42,6 +42,10 @@ public class PlayerManagement : MonoBehaviour
             {
                 TouchControl(pickedPlayer);
             }
+        } 
+        if(isAllPucksAboveBlock()){
+            Debug.Log("if");
+            isPickedInAbove();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -50,6 +54,15 @@ public class PlayerManagement : MonoBehaviour
         }
 
     }
+
+    private void isPickedInAbove()
+    {
+        if (pickedPlayer.transform.position.y >= blockY)
+        {
+            pickedPlayer.arrow.SetActive(false);
+        }
+    }
+
     private void ChoosePlayer()
     {
         for(int i=0; i<playerList.Count; i++)
@@ -116,7 +129,11 @@ public class PlayerManagement : MonoBehaviour
                                     pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
                                     pickedPlayer.arrow.SetActive(true);
                                     isFound = true;
-                                } 
+                                }  else
+                                {
+                                    playerList[i].GetComponent<Player>().arrow.SetActive(false);
+
+                                }
                             }
                       
                         }
@@ -150,7 +167,10 @@ public class PlayerManagement : MonoBehaviour
                                         pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
                                     pickedPlayer.arrow.SetActive(true);
                                     isFound = true;
-                                }
+                                } else
+                                    {
+                                        playerList[i].GetComponent<Player>().arrow.SetActive(false);
+                                    }
 
                                 }
                             
@@ -235,10 +255,8 @@ public class PlayerManagement : MonoBehaviour
                     float fX = Mathf.Sin(fRotation);
                     float fY = Mathf.Cos(fRotation);
                     Vector2 v2 = new Vector2(fY * 10, fX * 10);
-                    Debug.Log("the vector2:" + v2);
-
                     secilmisPlayer.rb.velocity = v2;
-                    Debug.Log("secilmisPlayer rb velocity:" + secilmisPlayer.rb.velocity);
+                    Debug.Log("e geldi 1");
 
                     secilmisPlayer.arrow.SetActive(false);
 
@@ -261,10 +279,9 @@ public class PlayerManagement : MonoBehaviour
                     float fX = Mathf.Sin(fRotation);
                     float fY = Mathf.Cos(fRotation);
                     Vector2 v2 = new Vector2(fY * 10, fX * 10);
-                    Debug.Log("the vector2:" + v2);
 
                     secilmisPlayer.rb.velocity = v2;
-                    Debug.Log("secilmisPlayer rb velocity:" + secilmisPlayer.rb.velocity);
+                    Debug.Log("e geldi 2");
 
                     secilmisPlayer.arrow.SetActive(false);
                     PickNewPlayer();
