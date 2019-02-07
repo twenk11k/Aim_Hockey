@@ -75,7 +75,6 @@ public class PlayerManagement : MonoBehaviour
         bool isEntered = false;
         isFinished = false;
         bool isFound = false;
-
         while (i < playerList.Count)
         {
             if (!isEntered)
@@ -94,6 +93,8 @@ public class PlayerManagement : MonoBehaviour
                                 pickedPlayerIndex = z;
                                 if (playerList[pickedPlayerIndex].GetComponent<Player>().transform.position.y < blockY)
                                 {
+                                    Debug.Log("Girdi1.");
+
                                     pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
                                     pickedPlayer.arrow.SetActive(true);
                                     isFound = true;
@@ -110,9 +111,14 @@ public class PlayerManagement : MonoBehaviour
                         bool isFirst = true;
                             if (playerList[pickedPlayerIndex].GetComponent<Player>().transform.position.y < blockY)
                             {
-                                pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
+                            Debug.Log("Girdi2");
+
+                            pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
                                 pickedPlayer.arrow.SetActive(true);
-                            } else
+                            isFound = true;
+
+                        }
+                        else
                             {
                             for (int k = 0; k < playerList.Count; k++)
                             {
@@ -122,7 +128,8 @@ public class PlayerManagement : MonoBehaviour
                                     pickedPlayerIndex = k;
                                     if (playerList[pickedPlayerIndex].GetComponent<Player>().transform.position.y < blockY)
                                 {
-                                    pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
+                                        Debug.Log("Girdi3.");
+                                        pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
                                     pickedPlayer.arrow.SetActive(true);
                                     isFound = true;
                                 }
@@ -144,7 +151,14 @@ public class PlayerManagement : MonoBehaviour
         }
             i++;
         }
-      
+        if (!isFound)
+        {
+            isFinished = true;
+
+        } else
+        {
+            isFinished = false;
+        }
 
     }
 
