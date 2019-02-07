@@ -24,17 +24,38 @@ public class PlayerManagement : MonoBehaviour
             playerList.Add(Instantiate(player, vector3, transform.rotation) as GameObject) ;
 
         }
-        int pickedNo = Random.Range(0, playerList.Count - 1);
-        pickedPlayer = playerList[pickedNo].GetComponent<Player>();
+        ChoosePlayer();
+    }
+    private void ChoosePlayer()
+    {
         for(int i=0; i<playerList.Count; i++)
         {
-            if (i != pickedNo)
+            if (i == 0)
+            {
+                pickedPlayer = playerList[i].GetComponent<Player>();
+            }
+
+            if (i + 1 != playerList.Count)
+            {
+                if (playerList[i+1].GetComponent<Player>().transform.position.y >= pickedPlayer.transform.position.y)
+                {
+                    pickedPlayer = playerList[i+1].GetComponent<Player>();
+                } else
+                {
+                    pickedPlayer = playerList[i].GetComponent<Player>();
+                }
+            }
+            
+        }
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            if (playerList[i].GetComponent<Player>() != pickedPlayer)
             {
                 playerList[i].GetComponent<Player>().arrow.SetActive(false);
             }
         }
-    }
 
+    }
     // Update is called once per frame
     void Update()
     {
@@ -44,8 +65,6 @@ public class PlayerManagement : MonoBehaviour
         {
             TouchControl(pickedPlayer);
         }
-
-        //Debug.Log("tell me the velocity : "+pickedPlayer.rb.velocity.ToString());
     }
 
 
@@ -136,5 +155,5 @@ public class PlayerManagement : MonoBehaviour
         //  transform.Rotate(Vector3.forward,0,Input.GetAxis("Horizontal")*speed*Time.deltaTime);
 
     }
-
+    
 }
