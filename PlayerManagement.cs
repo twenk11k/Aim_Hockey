@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerManagement : MonoBehaviour
 {
@@ -115,6 +116,12 @@ public class PlayerManagement : MonoBehaviour
         {
             TouchControl(pickedPlayer);
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
+
     }
 
 
