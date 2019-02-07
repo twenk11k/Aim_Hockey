@@ -36,6 +36,7 @@ public class PlayerManagement : MonoBehaviour
     {
         if (!isFinished || !isAllPucksAboveBlock())
         {
+            
             LaunchOnMouseClick(pickedPlayer);
 
             if (pickedPlayer.arrow.activeSelf)
@@ -60,6 +61,7 @@ public class PlayerManagement : MonoBehaviour
         if (pickedPlayer.transform.position.y >= blockY)
         {
             pickedPlayer.arrow.SetActive(false);
+            PickNewPlayer();
         }
     }
 
