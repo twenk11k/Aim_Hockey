@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -31,6 +30,25 @@ public class PlayerManagement : MonoBehaviour
 
         }
         ChoosePlayer();
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        if (!isFinished || !isAllPucksAboveBlock())
+        {
+            LaunchOnMouseClick(pickedPlayer);
+
+            if (pickedPlayer.arrow.activeSelf)
+            {
+                TouchControl(pickedPlayer);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
+
     }
     private void ChoosePlayer()
     {
@@ -164,26 +182,19 @@ public class PlayerManagement : MonoBehaviour
 
 
 
-    // Update is called once per frame
-    void Update()
+   
+
+    private bool isAllPucksAboveBlock()
     {
-        if(!isFinished)
+        for(int i=0; i<playerList.Count; i++)
         {
-            LaunchOnMouseClick(pickedPlayer);
-
-            if (pickedPlayer.arrow.activeSelf)
+            if (playerList[i].transform.position.y < blockY)
             {
-                TouchControl(pickedPlayer);
-            }
+                return false;
+            } 
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene("SampleScene");
-        }
-
+        return true;
     }
-
 
     private void LaunchOnMouseClick(Player secilmisPlayer)
     {
