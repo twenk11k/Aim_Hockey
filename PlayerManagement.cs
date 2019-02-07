@@ -85,7 +85,7 @@ public class PlayerManagement : MonoBehaviour
                     float fRotation = secilmisPlayer.rb.rotation * Mathf.Deg2Rad;
                     float fX = Mathf.Sin(fRotation);
                     float fY = Mathf.Cos(fRotation);
-                    Vector2 v2 = new Vector2(fY * moveSpeed, fX * moveSpeed);
+                    Vector2 v2 = new Vector2(fY * 10, fX * 10);
                     Debug.Log("the vector2:" + v2);
 
                     secilmisPlayer.rb.velocity = v2;
