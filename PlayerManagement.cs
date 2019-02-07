@@ -70,6 +70,7 @@ public class PlayerManagement : MonoBehaviour
 
     private void LaunchOnMouseClick(Player secilmisPlayer)
     {
+        // Mouse click 
         if (Input.GetButtonDown("Submit"))
         {
             if (!hasStarted)
@@ -95,6 +96,7 @@ public class PlayerManagement : MonoBehaviour
             }
 
         }
+        // Touch
         if (Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetTouch(0).phase == TouchPhase.Canceled))
         {
             if (!hasStarted)
