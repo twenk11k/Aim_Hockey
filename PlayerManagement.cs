@@ -11,14 +11,18 @@ public class PlayerManagement : MonoBehaviour
     private bool hasStarted = false;
     bool isMoved = false;
     public float moveSpeed = 100f;
-    public float turnSpeed = -1000f;
+    public float turnSpeed = -200f;
 
     Player pickedPlayer;
     int pickedPlayerIndex = 0;
+    [SerializeField] GameObject block;
+    float blockY;
+    private bool isFinished = false;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        blockY = block.transform.position.y;
         totalSizePucks = Random.Range(2, 4);
         for (int i=0; i<totalSizePucks; i++)
         {
@@ -69,6 +73,9 @@ public class PlayerManagement : MonoBehaviour
     {
         int i = 0;
         bool isEntered = false;
+        isFinished = false;
+        bool isFound = false;
+
         while (i < playerList.Count)
         {
             if (!isEntered)
@@ -80,15 +87,51 @@ public class PlayerManagement : MonoBehaviour
 
                     if (i == playerList.Count - 1)
                     {
-                        pickedPlayerIndex = 0;
-                        pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
-                        pickedPlayer.arrow.SetActive(true);
+                        for(int z=0; z<playerList.Count; z++)
+                        {
+                            if (!isFound)
+                            {
+                                pickedPlayerIndex = z;
+                                if (playerList[pickedPlayerIndex].GetComponent<Player>().transform.position.y < blockY)
+                                {
+                                    pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
+                                    pickedPlayer.arrow.SetActive(true);
+                                    isFound = true;
+                                } 
+                            }
+                      
+                        }
+                   
+                     
                     }
                     else
                     {
                         pickedPlayerIndex = i + 1;
-                        pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
-                        pickedPlayer.arrow.SetActive(true);
+                        bool isFirst = true;
+                            if (playerList[pickedPlayerIndex].GetComponent<Player>().transform.position.y < blockY)
+                            {
+                                pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
+                                pickedPlayer.arrow.SetActive(true);
+                            } else
+                            {
+                            for (int k = 0; k < playerList.Count; k++)
+                            {
+
+                                if (!isFound)
+                                {
+                                    pickedPlayerIndex = k;
+                                    if (playerList[pickedPlayerIndex].GetComponent<Player>().transform.position.y < blockY)
+                                {
+                                    pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
+                                    pickedPlayer.arrow.SetActive(true);
+                                    isFound = true;
+                                }
+
+                                }
+                            
+                            }
+                            }
+                           
                     }
                     isEntered = true;
 
@@ -98,23 +141,26 @@ public class PlayerManagement : MonoBehaviour
                     playerList[i].GetComponent<Player>().arrow.SetActive(false);
 
                 }
-            
         }
             i++;
-
         }
+      
+
     }
-    
+
 
 
     // Update is called once per frame
     void Update()
     {
-        LaunchOnMouseClick(pickedPlayer);
-
-        if (pickedPlayer.arrow.activeSelf)
+        if(!isFinished)
         {
-            TouchControl(pickedPlayer);
+            LaunchOnMouseClick(pickedPlayer);
+
+            if (pickedPlayer.arrow.activeSelf)
+            {
+                TouchControl(pickedPlayer);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
