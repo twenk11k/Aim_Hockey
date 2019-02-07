@@ -13,6 +13,7 @@ public class PlayerManagement : MonoBehaviour
     public float turnSpeed = -1000f;
 
     Player pickedPlayer;
+    int pickedPlayerIndex = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +34,8 @@ public class PlayerManagement : MonoBehaviour
             if (i == 0)
             {
                 pickedPlayer = playerList[i].GetComponent<Player>();
+                pickedPlayerIndex = 0;
+
             }
 
             if (i + 1 != playerList.Count)
@@ -40,9 +43,12 @@ public class PlayerManagement : MonoBehaviour
                 if (playerList[i+1].GetComponent<Player>().transform.position.y >= pickedPlayer.transform.position.y)
                 {
                     pickedPlayer = playerList[i+1].GetComponent<Player>();
+                    pickedPlayerIndex = i + 1;
                 } else
                 {
                     pickedPlayer = playerList[i].GetComponent<Player>();
+                    pickedPlayerIndex = i;
+
                 }
             }
             
@@ -56,12 +62,56 @@ public class PlayerManagement : MonoBehaviour
         }
 
     }
+
+
+    private void PickNewPlayer()
+    {
+        int i = 0;
+        bool isEntered = false;
+        while (i < playerList.Count)
+        {
+            if (!isEntered)
+            {
+
+                if (i == pickedPlayerIndex)
+                {
+                    playerList[i].GetComponent<Player>().arrow.SetActive(false);
+
+                    if (i == playerList.Count - 1)
+                    {
+                        pickedPlayerIndex = 0;
+                        pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
+                        pickedPlayer.arrow.SetActive(true);
+                    }
+                    else
+                    {
+                        pickedPlayerIndex = i + 1;
+                        pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
+                        pickedPlayer.arrow.SetActive(true);
+                    }
+                    isEntered = true;
+
+                }
+                else
+                {
+                    playerList[i].GetComponent<Player>().arrow.SetActive(false);
+
+                }
+            
+        }
+            i++;
+
+        }
+    }
+    
+
+
     // Update is called once per frame
     void Update()
     {
         LaunchOnMouseClick(pickedPlayer);
 
-        if (pickedPlayer.rb.velocity.x == 0.0f && pickedPlayer.rb.velocity.y == 0.0f)
+        if (pickedPlayer.arrow.activeSelf)
         {
             TouchControl(pickedPlayer);
         }
@@ -113,8 +163,10 @@ public class PlayerManagement : MonoBehaviour
                     Debug.Log("secilmisPlayer rb velocity:" + secilmisPlayer.rb.velocity);
 
                     secilmisPlayer.arrow.SetActive(false);
+
                     hasStarted = true;
                     isMoved = true;
+                    PickNewPlayer();
                 }
                 else
                 {
