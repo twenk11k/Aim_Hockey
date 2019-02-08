@@ -23,8 +23,9 @@ public class PlayerManagement : MonoBehaviour
     void Start()
     {
         blockY = blockLeft.transform.position.y;
-        blockLeft.transform.position = new Vector2(Random.Range(-5.5f, -3.5f),blockLeft.transform.position.y);
+        blockLeft.transform.position = new Vector2(Random.Range(-9f, -12.5f),blockLeft.transform.position.y);
         blockRight.transform.position = new Vector2(Random.Range(3f, 4.5f), blockLeft.transform.position.y);
+
 
         totalSizePucks = Random.Range(4, 6);
         
@@ -36,6 +37,9 @@ public class PlayerManagement : MonoBehaviour
         }
         ChoosePlayer();
     }
+
+   
+
     private bool isAnimPlayed = false;
     // Update is called once per frame
     void Update()
