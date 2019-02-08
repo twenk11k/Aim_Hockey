@@ -19,6 +19,7 @@ public class PlayerManagement : MonoBehaviour
 
     [SerializeField] GameObject blockLeft,blockRight;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -243,10 +244,8 @@ public class PlayerManagement : MonoBehaviour
     }
 
 
-
    
 
- 
     private void LaunchOnMouseClick(Player secilmisPlayer)
     {
         // Mouse click 

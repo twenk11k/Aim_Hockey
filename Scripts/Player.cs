@@ -18,9 +18,22 @@ public class Player : MonoBehaviour
 
     int totalSizePucks;
 
+    [SerializeField] AudioClip puckClip;
+
+
     public Player()
     {
+            
+    }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("carpisma adi: " + collision.collider.name);
+        if (puckClip != null)
+        {
+            AudioSource.PlayClipAtPoint(puckClip, Camera.main.transform.position, 0.2f);
+
+        }
     }
     void Start()
     {
