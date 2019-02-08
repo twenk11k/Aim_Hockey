@@ -32,7 +32,7 @@ public class PlayerManagement : MonoBehaviour
         
         for (int i=0; i<totalSizePucks; i++)
         {
-            Vector3 vector3 = new Vector3(transform.position.x + Random.Range(-2.21f, 2.21f), transform.position.y + Random.Range(-1.7f, -0.7f), transform.position.z);
+            Vector3 vector3 = new Vector3(transform.position.x + Random.Range(-2.21f, 2.21f), transform.position.y + Random.Range(-4.56f, -1.56f), transform.position.z);
             playerList.Add(Instantiate(player, vector3, transform.rotation) as GameObject) ;
 
         }
