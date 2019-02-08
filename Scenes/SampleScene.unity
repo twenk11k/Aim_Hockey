@@ -910,7 +910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbd3c206abe58514081001c2aa1e312e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 3380274966971250056, guid: 7f35236e0d3bf694da3beedabb2b6f43, type: 3}
+  player: {fileID: 15, guid: 7f35236e0d3bf694da3beedabb2b6f43, type: 3}
   moveSpeed: 2
   turnSpeed: -150
   blockLeft: {fileID: 1608216277}
@@ -1037,6 +1037,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50671faf664281542b1c1cf418987a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
   puckCollision: {fileID: 8300000, guid: f1d92b018384e9240abbddd4525b3508, type: 3}
 --- !u!1 &2052485092
 GameObject:
