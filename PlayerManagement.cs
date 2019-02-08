@@ -10,7 +10,7 @@ public class PlayerManagement : MonoBehaviour
     private bool hasStarted = false;
     bool isMoved = false;
     public float moveSpeed = 100f;
-    public float turnSpeed = -200f;
+    public float turnSpeed = -150f;
 
     Player pickedPlayer;
     int pickedPlayerIndex = 0;
@@ -23,7 +23,7 @@ public class PlayerManagement : MonoBehaviour
     void Start()
     {
         blockY = blockLeft.transform.position.y;
-        blockLeft.transform.position = new Vector2(Random.Range(-9f, -12.5f),blockLeft.transform.position.y);
+        blockLeft.transform.position = new Vector2(Random.Range(-11f, -9.5f),blockLeft.transform.position.y);
         blockRight.transform.position = new Vector2(Random.Range(3f, 4.5f), blockLeft.transform.position.y);
 
 
@@ -63,12 +63,28 @@ public class PlayerManagement : MonoBehaviour
             blockLeft.GetComponent<Animation>().Play();
             isAnimPlayed = true;
         }
+        if (isCurrentPuckAboveBlock())
+        {
+            PickNewPlayer();
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             SceneManager.LoadScene("SampleScene");
         }
 
     }
+
+    private bool isCurrentPuckAboveBlock()
+    {
+        if (pickedPlayer.transform.position.y >= blockY)
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
+
     private bool isAllPucksAboveBlock()
     {
         for (int i = 0; i < playerList.Count; i++)
@@ -191,7 +207,7 @@ public class PlayerManagement : MonoBehaviour
                                     if (playerList[pickedPlayerIndex].GetComponent<Player>().transform.position.y < blockY)
                                 {
                                         Debug.Log("Girdi3.");
-                                        pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
+                                    pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
                                     pickedPlayer.arrow.SetActive(true);
                                     isFound = true;
                                 } else
