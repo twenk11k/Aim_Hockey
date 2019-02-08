@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         startingPosition = rb.position;
         PlayerCollider = GetComponent<Collider2D>();
+        transform.Rotate(0, 0, 90);
     }
 
     /*

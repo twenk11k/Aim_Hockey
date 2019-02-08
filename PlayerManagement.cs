@@ -22,7 +22,7 @@ public class PlayerManagement : MonoBehaviour
     void Start()
     {
         blockY = block.transform.position.y;
-        totalSizePucks = Random.Range(2, 3);
+        totalSizePucks = Random.Range(4, 6);
         
         for (int i=0; i<totalSizePucks; i++)
         {
