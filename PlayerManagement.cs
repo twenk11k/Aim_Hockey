@@ -14,14 +14,18 @@ public class PlayerManagement : MonoBehaviour
 
     Player pickedPlayer;
     int pickedPlayerIndex = 0;
-    [SerializeField] GameObject block;
     float blockY;
     private bool isFinished = false;
+
+    [SerializeField] GameObject blockLeft,blockRight;
 
     // Start is called before the first frame update
     void Start()
     {
-        blockY = block.transform.position.y;
+        blockY = blockLeft.transform.position.y;
+        blockLeft.transform.position = new Vector2(Random.Range(-5.5f, -3.5f),blockLeft.transform.position.y);
+        blockRight.transform.position = new Vector2(Random.Range(3f, 4.5f), blockLeft.transform.position.y);
+
         totalSizePucks = Random.Range(4, 6);
         
         for (int i=0; i<totalSizePucks; i++)
@@ -52,7 +56,7 @@ public class PlayerManagement : MonoBehaviour
         if(isAllPucksAboveBlock() && !isAnimPlayed)
         {
             Debug.Log("orama");
-            block.GetComponent<Animation>().Play();
+            blockLeft.GetComponent<Animation>().Play();
             isAnimPlayed = true;
         }
         if (Input.GetKeyDown(KeyCode.Escape))

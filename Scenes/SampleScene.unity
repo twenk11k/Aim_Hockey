@@ -911,7 +911,8 @@ MonoBehaviour:
   player: {fileID: 749308468078597366, guid: 003f2d91337f6b047baa27f2e6290173, type: 3}
   moveSpeed: 2
   turnSpeed: -200
-  block: {fileID: 1608216277}
+  blockLeft: {fileID: 1608216277}
+  blockRight: {fileID: 1559923830}
 --- !u!4 &2041032998
 Transform:
   m_ObjectHideFlags: 0
