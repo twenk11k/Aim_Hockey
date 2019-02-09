@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayersMulti : MonoBehaviour
 {
+
     public GameObject playerAbove,playerBelow;
     int totalSizePucksAbove;
     int totalSizePucksBelow;
@@ -49,18 +50,18 @@ public class PlayersMulti : MonoBehaviour
         for (int i = 0; i < totalSizePucksAbove; i++)
         {
             Vector3 vector3 = new Vector3(transform.position.x + Random.Range(-2.21f, 2.21f), transform.position.y + Random.Range(1.5f, 4.5f), transform.position.z);
-            GameObject player1 = Instantiate(playerAbove, vector3, transform.rotation) as GameObject;
-            player1.GetComponent<Player>().RotatePlayer(false);
-            playerAboveList.Add(player1);
+            GameObject playerAboveObj = Instantiate(playerAbove, vector3, transform.rotation) as GameObject;
+            playerAboveObj.GetComponent<Player>().RotatePlayer(false);
+            playerAboveList.Add(playerAboveObj);
 
         }
         for (int i = 0; i < totalSizePucksBelow; i++)
         {
             Vector3 vector3 = new Vector3(transform.position.x + Random.Range(-2.21f, 2.21f), transform.position.y + Random.Range(-4.56f, -1.56f), transform.position.z);
-            GameObject player2 = Instantiate(playerBelow, vector3, transform.rotation) as GameObject;
-            player2.GetComponent<Player>().RotatePlayer(true);
+            GameObject playerBelowObj = Instantiate(playerBelow, vector3, transform.rotation) as GameObject;
+            playerBelowObj.GetComponent<Player>().RotatePlayer(true);
 
-            playerBelowList.Add(player2);
+            playerBelowList.Add(playerBelowObj);
         }
         ChoosePlayerAbove();
         ChoosePlayerBelow();

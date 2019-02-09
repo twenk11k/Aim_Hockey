@@ -34,7 +34,9 @@ public class PlayerManagementMulti : MonoBehaviour
         for (int i = 0; i < totalSizePucks; i++)
         {
             Vector3 vector3 = new Vector3(transform.position.x + Random.Range(-2.21f, 2.21f), transform.position.y + Random.Range(1.5f, 4.5f), transform.position.z);
-            playerList.Add(Instantiate(player, vector3, transform.rotation) as GameObject);
+            GameObject playerObj = Instantiate(player, vector3, transform.rotation) as GameObject;
+            playerObj.GetComponent<Player>().RotatePlayer(false);
+            playerList.Add(playerObj);
             
 
         }
@@ -118,7 +120,6 @@ public class PlayerManagementMulti : MonoBehaviour
             if (i == 0)
             {
                 pickedPlayer = playerList[i].GetComponent<Player>();
-                pickedPlayer.isBelow = false;
                 pickedPlayerIndex = 0;
 
             }
@@ -128,13 +129,11 @@ public class PlayerManagementMulti : MonoBehaviour
                 if (playerList[i + 1].GetComponent<Player>().transform.position.y >= pickedPlayer.transform.position.y)
                 {
                     pickedPlayer = playerList[i + 1].GetComponent<Player>();
-                    pickedPlayer.isBelow = false;
                     pickedPlayerIndex = i + 1;
                 }
                 else
                 {
                     pickedPlayer = playerList[i].GetComponent<Player>();
-                    pickedPlayer.isBelow = false;
                     pickedPlayerIndex = i;
 
                 }
@@ -179,7 +178,6 @@ public class PlayerManagementMulti : MonoBehaviour
                                     Debug.Log("Girdi1.");
 
                                     pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
-                                    pickedPlayer.isBelow = false;
                                     pickedPlayer.arrow.SetActive(true);
                                     isFound = true;
                                 }
@@ -203,7 +201,6 @@ public class PlayerManagementMulti : MonoBehaviour
                             Debug.Log("Girdi2");
 
                             pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
-                            pickedPlayer.isBelow = false;
                             pickedPlayer.arrow.SetActive(true);
                             isFound = true;
 
@@ -220,7 +217,6 @@ public class PlayerManagementMulti : MonoBehaviour
                                     {
                                         Debug.Log("Girdi3.");
                                         pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
-                                        pickedPlayer.isBelow = false;
                                         pickedPlayer.arrow.SetActive(true);
                                         isFound = true;
                                     }
