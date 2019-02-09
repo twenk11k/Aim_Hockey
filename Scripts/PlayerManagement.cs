@@ -18,7 +18,7 @@ public class PlayerManagement : MonoBehaviour
     private bool isFinished = false;
 
     [SerializeField] GameObject blockLeft,blockRight;
-
+    public GameObject restartCanvas;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +42,14 @@ public class PlayerManagement : MonoBehaviour
         ChoosePlayer();
     }
 
-   
+    public void RestartScene()
+    {
+        SceneManager.LoadScene("SoloGame");
+    }
+    public void OpenMultiplayerScene()
+    {
+        SceneManager.LoadScene("MultiGame");
+    }
 
     private bool isAnimPlayed = false;
     // Update is called once per frame
@@ -65,6 +72,7 @@ public class PlayerManagement : MonoBehaviour
         {
             Debug.Log("orama");
             blockLeft.GetComponent<Animation>().Play();
+            restartCanvas.SetActive(true);
             isAnimPlayed = true;
         }
         if (isCurrentPuckAboveBlock())
@@ -73,7 +81,7 @@ public class PlayerManagement : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("SoloGame");
         }
 
     }
@@ -364,5 +372,4 @@ public class PlayerManagement : MonoBehaviour
         //  transform.Rotate(Vector3.forward,0,Input.GetAxis("Horizontal")*speed*Time.deltaTime);
 
     }
-    
 }
