@@ -51,7 +51,7 @@ public class PlayersMulti : MonoBehaviour
         {
             Vector3 vector3 = new Vector3(transform.position.x + Random.Range(-2.21f, 2.21f), transform.position.y + Random.Range(1.5f, 4.5f), transform.position.z);
             GameObject playerAboveObj = Instantiate(playerAbove, vector3, transform.rotation) as GameObject;
-            playerAboveObj.GetComponent<Player>().RotatePlayer(false);
+            playerAboveObj.GetComponent<Player>().RotatePlayer(false,90);
             playerAboveList.Add(playerAboveObj);
 
         }
@@ -59,7 +59,7 @@ public class PlayersMulti : MonoBehaviour
         {
             Vector3 vector3 = new Vector3(transform.position.x + Random.Range(-2.21f, 2.21f), transform.position.y + Random.Range(-4.56f, -1.56f), transform.position.z);
             GameObject playerBelowObj = Instantiate(playerBelow, vector3, transform.rotation) as GameObject;
-            playerBelowObj.GetComponent<Player>().RotatePlayer(true);
+            playerBelowObj.GetComponent<Player>().RotatePlayer(true,90);
 
             playerBelowList.Add(playerBelowObj);
         }
@@ -162,6 +162,9 @@ public class PlayersMulti : MonoBehaviour
             {
                 TouchControl(pickedPlayerAbove,false);
             }
+
+            CheckForeignPucksForAbove();
+
         }
         if (isAllPucksBelowBlock())
         {
@@ -177,9 +180,26 @@ public class PlayersMulti : MonoBehaviour
         {
             PickNewPlayerAbove();
         }
-     
+
+
 
     }
+
+    private void CheckForeignPucksForAbove()
+    {
+        for(int i=0; i<playerBelowList.Count; i++)
+        {
+            if (playerBelowList[i].transform.position.y >= blockY)
+            {
+                GameObject playerBelowObj = playerBelowList[i];
+                playerBelowObj.GetComponent<Player>().RotatePlayer(false, 180);
+                playerAboveList.Add(playerBelowObj);
+                playerBelowList.RemoveAt(i);
+            }
+        }
+    }
+
+
     // This method for ABOVE
     private bool isCurrentPuckBelowBlock()
     {
@@ -326,6 +346,7 @@ public class PlayersMulti : MonoBehaviour
             {
                 TouchControl(pickedPlayerBelow,true);
             }
+            CheckForeignPucksForBelow();
         }
         if (isAllPucksAboveBlock())
         {
@@ -342,7 +363,19 @@ public class PlayersMulti : MonoBehaviour
             PickNewPlayerBelow();
         }
     }
-
+    private void CheckForeignPucksForBelow()
+    {
+        for (int i = 0; i < playerAboveList.Count; i++)
+        {
+            if (playerAboveList[i].transform.position.y < blockY)
+            {
+                GameObject playerAboveObj = playerAboveList[i];
+                playerAboveObj.GetComponent<Player>().RotatePlayer(true, 180);
+                playerBelowList.Add(playerAboveObj);
+                playerAboveList.RemoveAt(i);
+            }
+        }
+    }
     // This method for BELOW
     private bool isCurrentPuckAboveBlock()
     {

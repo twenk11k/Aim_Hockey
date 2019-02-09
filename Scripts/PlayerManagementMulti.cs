@@ -35,7 +35,7 @@ public class PlayerManagementMulti : MonoBehaviour
         {
             Vector3 vector3 = new Vector3(transform.position.x + Random.Range(-2.21f, 2.21f), transform.position.y + Random.Range(1.5f, 4.5f), transform.position.z);
             GameObject playerObj = Instantiate(player, vector3, transform.rotation) as GameObject;
-            playerObj.GetComponent<Player>().RotatePlayer(false);
+            playerObj.GetComponent<Player>().RotatePlayer(false,90);
             playerList.Add(playerObj);
             
 

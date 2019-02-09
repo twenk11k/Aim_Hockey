@@ -41,15 +41,15 @@ public class Player : MonoBehaviour
         PlayerCollider = GetComponent<Collider2D>();
        // RotatePlayer();
     }
-    public void RotatePlayer(bool isBelow)
+    public void RotatePlayer(bool isBelow,float degree)
     {
         if (isBelow)
         {
-            transform.Rotate(0, 0, 90);
+            transform.Rotate(0, 0, degree);
         }
         else
         {
-            transform.Rotate(0, 0, -90);
+            transform.Rotate(0, 0, -degree);
         }
     }
     
