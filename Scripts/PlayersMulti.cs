@@ -192,9 +192,14 @@ public class PlayersMulti : MonoBehaviour
             if (playerBelowList[i].transform.position.y >= blockY)
             {
                 GameObject playerBelowObj = playerBelowList[i];
+                
                 playerBelowObj.GetComponent<Player>().RotatePlayer(false, 180);
                 playerAboveList.Add(playerBelowObj);
                 playerBelowList.RemoveAt(i);
+                if (pickedPlayerBelow == playerBelowObj)
+                {
+                    PickNewPlayerBelow();
+                }
             }
         }
     }
@@ -373,6 +378,10 @@ public class PlayersMulti : MonoBehaviour
                 playerAboveObj.GetComponent<Player>().RotatePlayer(true, 180);
                 playerBelowList.Add(playerAboveObj);
                 playerAboveList.RemoveAt(i);
+                if (pickedPlayerAbove == playerAboveObj)
+                {
+                    PickNewPlayerAbove();
+                }
             }
         }
     }
