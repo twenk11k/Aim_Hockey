@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] AudioClip puckClip;
 
+    public bool isSolo = false;
 
     public Player()
     {
@@ -40,7 +41,13 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         startingPosition = rb.position;
         PlayerCollider = GetComponent<Collider2D>();
-        transform.Rotate(0, 0, 90);
+        if (isSolo)
+        {
+            transform.Rotate(0, 0, 90);
+        } else
+        {
+            transform.Rotate(0, 0, -90);
+        }
     }
 
     /*

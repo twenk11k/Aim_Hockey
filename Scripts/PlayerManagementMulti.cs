@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerManagement : MonoBehaviour
+public class PlayerManagementMulti : MonoBehaviour
 {
     public GameObject player;
     int totalSizePucks;
@@ -17,54 +18,56 @@ public class PlayerManagement : MonoBehaviour
     float blockY;
     private bool isFinished = false;
 
-    [SerializeField] GameObject blockLeft,blockRight;
+    [SerializeField] GameObject blockLeft, blockRight;
 
 
     // Start is called before the first frame update
     void Start()
     {
         blockY = blockLeft.transform.position.y;
-        blockLeft.transform.position = new Vector2(Random.Range(-11f, -9.5f),blockLeft.transform.position.y);
+        blockLeft.transform.position = new Vector2(Random.Range(-11f, -9.5f), blockLeft.transform.position.y);
         blockRight.transform.position = new Vector2(Random.Range(3f, 4.5f), blockLeft.transform.position.y);
 
 
         totalSizePucks = Random.Range(2, 4);
-        
-        for (int i=0; i<totalSizePucks; i++)
+
+        for (int i = 0; i < totalSizePucks; i++)
         {
-            Vector3 vector3 = new Vector3(transform.position.x + Random.Range(-2.21f, 2.21f), transform.position.y + Random.Range(-4.56f, -1.56f), transform.position.z);
-            playerList.Add(Instantiate(player, vector3, transform.rotation) as GameObject) ;
+            Vector3 vector3 = new Vector3(transform.position.x + Random.Range(-2.21f, 2.21f), transform.position.y + Random.Range(1.5f, 4.5f), transform.position.z);
+            playerList.Add(Instantiate(player, vector3, transform.rotation) as GameObject);
+            
 
         }
         ChoosePlayer();
     }
 
-   
+
 
     private bool isAnimPlayed = false;
     // Update is called once per frame
     void Update()
     {
-        if (!isFinished || !isAllPucksAboveBlock())
+        if (!isFinished || !isAllPucksBelowBlock())
         {
-            
+
             LaunchOnMouseClick(pickedPlayer);
 
             if (pickedPlayer.arrow.activeSelf)
             {
                 TouchControl(pickedPlayer);
             }
-        } 
-        if(isAllPucksAboveBlock()){
-            isPickedInAbove();
         }
-        if(isAllPucksAboveBlock() && !isAnimPlayed)
+        if (isAllPucksBelowBlock())
+        {
+            isPickedInBelow();
+        }
+        if (isAllPucksBelowBlock() && !isAnimPlayed)
         {
             Debug.Log("orama");
             blockLeft.GetComponent<Animation>().Play();
             isAnimPlayed = true;
         }
-        if (isCurrentPuckAboveBlock())
+        if (isCurrentPuckBelowBlock())
         {
             PickNewPlayer();
         }
@@ -75,22 +78,23 @@ public class PlayerManagement : MonoBehaviour
 
     }
 
-    private bool isCurrentPuckAboveBlock()
+    private bool isCurrentPuckBelowBlock()
     {
-        if (pickedPlayer.transform.position.y >= blockY)
+        if (pickedPlayer.transform.position.y < blockY)
         {
             return true;
-        } else
+        }
+        else
         {
             return false;
         }
     }
 
-    private bool isAllPucksAboveBlock()
+    private bool isAllPucksBelowBlock()
     {
         for (int i = 0; i < playerList.Count; i++)
         {
-            if (playerList[i].transform.position.y < blockY)
+            if (playerList[i].transform.position.y >= blockY)
             {
                 return false;
             }
@@ -98,9 +102,9 @@ public class PlayerManagement : MonoBehaviour
         return true;
     }
 
-    private void isPickedInAbove()
+    private void isPickedInBelow()
     {
-        if (pickedPlayer.transform.position.y >= blockY)
+        if (pickedPlayer.transform.position.y < blockY)
         {
             pickedPlayer.arrow.SetActive(false);
             PickNewPlayer();
@@ -109,35 +113,33 @@ public class PlayerManagement : MonoBehaviour
 
     private void ChoosePlayer()
     {
-        for(int i=0; i<playerList.Count; i++)
+        for (int i = 0; i < playerList.Count; i++)
         {
             if (i == 0)
             {
                 pickedPlayer = playerList[i].GetComponent<Player>();
-                pickedPlayer.isSolo = true;
-
+                pickedPlayer.isSolo = false;
                 pickedPlayerIndex = 0;
 
             }
 
             if (i + 1 != playerList.Count)
             {
-                if (playerList[i+1].GetComponent<Player>().transform.position.y >= pickedPlayer.transform.position.y)
+                if (playerList[i + 1].GetComponent<Player>().transform.position.y >= pickedPlayer.transform.position.y)
                 {
-                    pickedPlayer = playerList[i+1].GetComponent<Player>();
-                    pickedPlayer.isSolo = true;
-
+                    pickedPlayer = playerList[i + 1].GetComponent<Player>();
+                    pickedPlayer.isSolo = false;
                     pickedPlayerIndex = i + 1;
-                } else
+                }
+                else
                 {
                     pickedPlayer = playerList[i].GetComponent<Player>();
-                    pickedPlayer.isSolo = true;
-
+                    pickedPlayer.isSolo = false;
                     pickedPlayerIndex = i;
 
                 }
             }
-            
+
         }
         for (int i = 0; i < playerList.Count; i++)
         {
@@ -167,72 +169,71 @@ public class PlayerManagement : MonoBehaviour
 
                     if (i == playerList.Count - 1)
                     {
-                        for(int z=0; z<playerList.Count; z++)
+                        for (int z = 0; z < playerList.Count; z++)
                         {
                             if (!isFound)
                             {
                                 pickedPlayerIndex = z;
-                                if (playerList[pickedPlayerIndex].GetComponent<Player>().transform.position.y < blockY)
+                                if (playerList[pickedPlayerIndex].GetComponent<Player>().transform.position.y >= blockY)
                                 {
                                     Debug.Log("Girdi1.");
 
                                     pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
-                                    pickedPlayer.isSolo = true;
-
+                                    pickedPlayer.isSolo = false;
                                     pickedPlayer.arrow.SetActive(true);
                                     isFound = true;
-                                }  else
+                                }
+                                else
                                 {
                                     playerList[i].GetComponent<Player>().arrow.SetActive(false);
 
                                 }
                             }
-                      
+
                         }
-                   
-                     
+
+
                     }
                     else
                     {
                         pickedPlayerIndex = i + 1;
                         bool isFirst = true;
-                            if (playerList[pickedPlayerIndex].GetComponent<Player>().transform.position.y < blockY)
-                            {
+                        if (playerList[pickedPlayerIndex].GetComponent<Player>().transform.position.y >= blockY)
+                        {
                             Debug.Log("Girdi2");
 
                             pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
-                            pickedPlayer.isSolo = true;
-
+                            pickedPlayer.isSolo = false;
                             pickedPlayer.arrow.SetActive(true);
                             isFound = true;
 
                         }
                         else
-                            {
+                        {
                             for (int k = 0; k < playerList.Count; k++)
                             {
 
                                 if (!isFound)
                                 {
                                     pickedPlayerIndex = k;
-                                    if (playerList[pickedPlayerIndex].GetComponent<Player>().transform.position.y < blockY)
-                                {
+                                    if (playerList[pickedPlayerIndex].GetComponent<Player>().transform.position.y >= blockY)
+                                    {
                                         Debug.Log("Girdi3.");
-                                    pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
-                                        pickedPlayer.isSolo = true;
-
+                                        pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
+                                        pickedPlayer.isSolo = false;
                                         pickedPlayer.arrow.SetActive(true);
-                                    isFound = true;
-                                } else
+                                        isFound = true;
+                                    }
+                                    else
                                     {
                                         playerList[i].GetComponent<Player>().arrow.SetActive(false);
                                     }
 
                                 }
-                            
+
                             }
-                            }
-                           
+                        }
+
                     }
                     isEntered = true;
 
@@ -242,13 +243,14 @@ public class PlayerManagement : MonoBehaviour
                     playerList[i].GetComponent<Player>().arrow.SetActive(false);
 
                 }
-        }
+            }
             i++;
         }
         if (!isFound)
         {
             isFinished = true;
-        } else
+        }
+        else
         {
             isFinished = false;
         }
@@ -256,7 +258,7 @@ public class PlayerManagement : MonoBehaviour
     }
 
 
-   
+
 
     private void LaunchOnMouseClick(Player secilmisPlayer)
     {
@@ -265,12 +267,12 @@ public class PlayerManagement : MonoBehaviour
         {
             if (!hasStarted)
             {
-                
+
                 float fRotation = secilmisPlayer.rb.rotation * Mathf.Deg2Rad;
                 float fX = Mathf.Sin(fRotation);
                 float fY = Mathf.Cos(fRotation);
                 Vector2 v2 = new Vector2(fY * moveSpeed, fX * moveSpeed);
-                Debug.Log("the vector2:" +v2);
+                Debug.Log("the vector2:" + v2);
 
                 secilmisPlayer.rb.velocity = v2;
                 Debug.Log("secilmisPlayer rb velocity:" + secilmisPlayer.rb.velocity);
@@ -334,7 +336,7 @@ public class PlayerManagement : MonoBehaviour
                     secilmisPlayer.rb.velocity = new Vector2(0, 0);
                     secilmisPlayer.arrow.SetActive(true);
                 }
-              
+
                 hasStarted = false;
             }
         }
@@ -342,7 +344,8 @@ public class PlayerManagement : MonoBehaviour
     }
     private void TouchControl(Player secilmisPlayer)
     {
-        Rect bounds = new Rect(0, blockY, Screen.width, Screen.height/2);
+        Rect bounds = new Rect(0,Screen.height/2, Screen.width, Screen.height/2 );
+        Debug.Log("neulenbu: "+(Screen.height/2).ToString());
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved && bounds.Contains(Input.mousePosition))
         {
             var touchDeltaPosition = Input.GetTouch(0).deltaPosition;
@@ -353,7 +356,7 @@ public class PlayerManagement : MonoBehaviour
             //  var ypos = Mathf.Clamp(transform.position.y + ((touchDeltaPosition.y * Time.deltaTime * moveSpeed) / 10), yMin, yMax);
             //  transform.position = new Vector2(xpos, ypos);
             // Debug.Log(Mathf.Clamp(touchDeltaPosition.x, -1, 1));
-            secilmisPlayer.transform.Rotate(0, 0, Mathf.Clamp(touchDeltaPosition.x, -1, 1) * turnSpeed * Time.deltaTime);
+            secilmisPlayer.transform.Rotate(0, 0, - Mathf.Clamp(touchDeltaPosition.x, -1, 1) * turnSpeed * Time.deltaTime);
             isMoved = true;
         }
         //   Debug.Log(Input.GetAxis("Horizontal"));
@@ -367,5 +370,5 @@ public class PlayerManagement : MonoBehaviour
         //  transform.Rotate(Vector3.forward,0,Input.GetAxis("Horizontal")*speed*Time.deltaTime);
 
     }
-    
+
 }
