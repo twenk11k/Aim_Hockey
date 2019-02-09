@@ -198,6 +198,7 @@ public class PlayersMulti : MonoBehaviour
                 playerBelowList.RemoveAt(i);
                 if (pickedPlayerBelow == playerBelowObj)
                 {
+                    pickedPlayerBelow.arrow.SetActive(false);
                     PickNewPlayerBelow();
                 }
             }
@@ -380,6 +381,7 @@ public class PlayersMulti : MonoBehaviour
                 playerAboveList.RemoveAt(i);
                 if (pickedPlayerAbove == playerAboveObj)
                 {
+                    pickedPlayerAbove.arrow.SetActive(false);
                     PickNewPlayerAbove();
                 }
             }
