@@ -118,7 +118,7 @@ public class PlayerManagementMulti : MonoBehaviour
             if (i == 0)
             {
                 pickedPlayer = playerList[i].GetComponent<Player>();
-                pickedPlayer.isSolo = false;
+                pickedPlayer.isBelow = false;
                 pickedPlayerIndex = 0;
 
             }
@@ -128,13 +128,13 @@ public class PlayerManagementMulti : MonoBehaviour
                 if (playerList[i + 1].GetComponent<Player>().transform.position.y >= pickedPlayer.transform.position.y)
                 {
                     pickedPlayer = playerList[i + 1].GetComponent<Player>();
-                    pickedPlayer.isSolo = false;
+                    pickedPlayer.isBelow = false;
                     pickedPlayerIndex = i + 1;
                 }
                 else
                 {
                     pickedPlayer = playerList[i].GetComponent<Player>();
-                    pickedPlayer.isSolo = false;
+                    pickedPlayer.isBelow = false;
                     pickedPlayerIndex = i;
 
                 }
@@ -179,7 +179,7 @@ public class PlayerManagementMulti : MonoBehaviour
                                     Debug.Log("Girdi1.");
 
                                     pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
-                                    pickedPlayer.isSolo = false;
+                                    pickedPlayer.isBelow = false;
                                     pickedPlayer.arrow.SetActive(true);
                                     isFound = true;
                                 }
@@ -203,7 +203,7 @@ public class PlayerManagementMulti : MonoBehaviour
                             Debug.Log("Girdi2");
 
                             pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
-                            pickedPlayer.isSolo = false;
+                            pickedPlayer.isBelow = false;
                             pickedPlayer.arrow.SetActive(true);
                             isFound = true;
 
@@ -220,7 +220,7 @@ public class PlayerManagementMulti : MonoBehaviour
                                     {
                                         Debug.Log("Girdi3.");
                                         pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
-                                        pickedPlayer.isSolo = false;
+                                        pickedPlayer.isBelow = false;
                                         pickedPlayer.arrow.SetActive(true);
                                         isFound = true;
                                     }

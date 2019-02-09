@@ -114,7 +114,7 @@ public class PlayerManagement : MonoBehaviour
             if (i == 0)
             {
                 pickedPlayer = playerList[i].GetComponent<Player>();
-                pickedPlayer.isSolo = true;
+                pickedPlayer.isBelow = true;
 
                 pickedPlayerIndex = 0;
 
@@ -125,13 +125,13 @@ public class PlayerManagement : MonoBehaviour
                 if (playerList[i+1].GetComponent<Player>().transform.position.y >= pickedPlayer.transform.position.y)
                 {
                     pickedPlayer = playerList[i+1].GetComponent<Player>();
-                    pickedPlayer.isSolo = true;
+                    pickedPlayer.isBelow = true;
 
                     pickedPlayerIndex = i + 1;
                 } else
                 {
                     pickedPlayer = playerList[i].GetComponent<Player>();
-                    pickedPlayer.isSolo = true;
+                    pickedPlayer.isBelow = true;
 
                     pickedPlayerIndex = i;
 
@@ -177,7 +177,7 @@ public class PlayerManagement : MonoBehaviour
                                     Debug.Log("Girdi1.");
 
                                     pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
-                                    pickedPlayer.isSolo = true;
+                                    pickedPlayer.isBelow = true;
 
                                     pickedPlayer.arrow.SetActive(true);
                                     isFound = true;
@@ -201,7 +201,7 @@ public class PlayerManagement : MonoBehaviour
                             Debug.Log("Girdi2");
 
                             pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
-                            pickedPlayer.isSolo = true;
+                            pickedPlayer.isBelow = true;
 
                             pickedPlayer.arrow.SetActive(true);
                             isFound = true;
@@ -219,8 +219,7 @@ public class PlayerManagement : MonoBehaviour
                                 {
                                         Debug.Log("Girdi3.");
                                     pickedPlayer = playerList[pickedPlayerIndex].GetComponent<Player>();
-                                        pickedPlayer.isSolo = true;
-
+                                        pickedPlayer.isBelow = true;
                                         pickedPlayer.arrow.SetActive(true);
                                     isFound = true;
                                 } else
