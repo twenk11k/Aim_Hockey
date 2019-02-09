@@ -20,8 +20,6 @@ public class Player : MonoBehaviour
 
     [SerializeField] AudioClip puckClip;
 
-    public bool isBelow = true;
-
     public Player()
     {
             
@@ -32,7 +30,7 @@ public class Player : MonoBehaviour
         // Debug.Log("carpisma adi: " + collision.collider.name);
         if (puckClip != null)
         {
-           // AudioSource.PlayClipAtPoint(puckClip, Camera.main.transform.position, 0.2f);
+            AudioSource.PlayClipAtPoint(puckClip, Camera.main.transform.position, 0.2f);
 
         }
     }
@@ -41,14 +39,18 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         startingPosition = rb.position;
         PlayerCollider = GetComponent<Collider2D>();
+       // RotatePlayer();
+    }
+    public void RotatePlayer(bool isBelow)
+    {
         if (isBelow)
         {
             transform.Rotate(0, 0, 90);
-        } else
+        }
+        else
         {
             transform.Rotate(0, 0, -90);
         }
     }
-
     
 }

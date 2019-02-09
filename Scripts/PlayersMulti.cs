@@ -49,12 +49,18 @@ public class PlayersMulti : MonoBehaviour
         for (int i = 0; i < totalSizePucksAbove; i++)
         {
             Vector3 vector3 = new Vector3(transform.position.x + Random.Range(-2.21f, 2.21f), transform.position.y + Random.Range(1.5f, 4.5f), transform.position.z);
-            playerAboveList.Add(Instantiate(playerAbove, vector3, transform.rotation) as GameObject);
+            GameObject player1 = Instantiate(playerAbove, vector3, transform.rotation) as GameObject;
+            player1.GetComponent<Player>().RotatePlayer(false);
+            playerAboveList.Add(player1);
+
         }
         for (int i = 0; i < totalSizePucksBelow; i++)
         {
             Vector3 vector3 = new Vector3(transform.position.x + Random.Range(-2.21f, 2.21f), transform.position.y + Random.Range(-4.56f, -1.56f), transform.position.z);
-            playerBelowList.Add(Instantiate(playerBelow, vector3, transform.rotation) as GameObject);
+            GameObject player2 = Instantiate(playerBelow, vector3, transform.rotation) as GameObject;
+            player2.GetComponent<Player>().RotatePlayer(true);
+
+            playerBelowList.Add(player2);
         }
         ChoosePlayerAbove();
         ChoosePlayerBelow();
@@ -66,8 +72,6 @@ public class PlayersMulti : MonoBehaviour
             if (i == 0)
             {
                 pickedPlayerAbove = playerAboveList[i].GetComponent<Player>();
-                pickedPlayerAbove.isBelow = false;
-
                 pickedPlayerAboveIndex = 0;
 
             }
@@ -77,15 +81,11 @@ public class PlayersMulti : MonoBehaviour
                 if (playerAboveList[i + 1].GetComponent<Player>().transform.position.y >= pickedPlayerAbove.transform.position.y)
                 {
                     pickedPlayerAbove = playerAboveList[i + 1].GetComponent<Player>();
-                    pickedPlayerAbove.isBelow = false;
-
                     pickedPlayerAboveIndex = i + 1;
                 }
                 else
                 {
                     pickedPlayerAbove = playerAboveList[i].GetComponent<Player>();
-                    pickedPlayerAbove.isBelow = false;
-
                     pickedPlayerAboveIndex = i;
 
                 }
@@ -109,8 +109,6 @@ public class PlayersMulti : MonoBehaviour
             if (i == 0)
             {
                 pickedPlayerBelow = playerBelowList[i].GetComponent<Player>();
-                pickedPlayerBelow.isBelow = true;
-
                 pickedPlayerBelowIndex = 0;
 
             }
@@ -120,15 +118,11 @@ public class PlayersMulti : MonoBehaviour
                 if (playerBelowList[i + 1].GetComponent<Player>().transform.position.y >= pickedPlayerBelow.transform.position.y)
                 {
                     pickedPlayerBelow = playerBelowList[i + 1].GetComponent<Player>();
-                    pickedPlayerBelow.isBelow = true;
-
                     pickedPlayerBelowIndex = i + 1;
                 }
                 else
                 {
                     pickedPlayerBelow = playerBelowList[i].GetComponent<Player>();
-                    pickedPlayerBelow.isBelow = true;
-
                     pickedPlayerBelowIndex = i;
 
                 }
@@ -221,97 +215,93 @@ public class PlayersMulti : MonoBehaviour
     }
     private void PickNewPlayerAbove()
     {
-        int i = 0;
         bool isEntered = false;
         isFinishedAbove = false;
         bool isFound = false;
-        while (i < playerAboveList.Count)
+        for(int i=0; i < playerAboveList.Count; i++)
         {
-            if (!isEntered)
-            {
-
-                if (i == pickedPlayerAboveIndex)
+                if (!isEntered)
                 {
-                    playerAboveList[i].GetComponent<Player>().arrow.SetActive(false);
 
-                    if (i == playerAboveList.Count - 1)
+                    if (i == pickedPlayerAboveIndex)
                     {
-                        for (int z = 0; z < playerAboveList.Count; z++)
+                        playerAboveList[i].GetComponent<Player>().arrow.SetActive(false);
+
+                        if (i == playerAboveList.Count - 1)
                         {
-                            if (!isFound)
+                            for (int z = 0; z < playerAboveList.Count; z++)
                             {
-                                pickedPlayerAboveIndex = z;
-                                if (playerAboveList[pickedPlayerAboveIndex].GetComponent<Player>().transform.position.y >= blockY)
-                                {
-                                    Debug.Log("Girdi1.");
-
-                                    pickedPlayerAbove = playerAboveList[pickedPlayerAboveIndex].GetComponent<Player>();
-                                    pickedPlayerAbove.isBelow = false;
-                                    pickedPlayerAbove.arrow.SetActive(true);
-                                    isFound = true;
-                                }
-                                else
-                                {
-                                    playerAboveList[i].GetComponent<Player>().arrow.SetActive(false);
-
-                                }
-                            }
-
-                        }
-
-
-                    }
-                    else
-                    {
-                        pickedPlayerAboveIndex = i + 1;
-                        bool isFirst = true;
-                        if (playerAboveList[pickedPlayerAboveIndex].GetComponent<Player>().transform.position.y >= blockY)
-                        {
-                            Debug.Log("Girdi2");
-
-                            pickedPlayerAbove = playerAboveList[pickedPlayerAboveIndex].GetComponent<Player>();
-                            pickedPlayerAbove.isBelow = false;
-                            pickedPlayerAbove.arrow.SetActive(true);
-                            isFound = true;
-
-                        }
-                        else
-                        {
-                            for (int k = 0; k < playerAboveList.Count; k++)
-                            {
-
                                 if (!isFound)
                                 {
-                                    pickedPlayerAboveIndex = k;
+                                    pickedPlayerAboveIndex = z;
                                     if (playerAboveList[pickedPlayerAboveIndex].GetComponent<Player>().transform.position.y >= blockY)
                                     {
-                                        Debug.Log("Girdi3.");
+                                        Debug.Log("Girdi1.");
+
                                         pickedPlayerAbove = playerAboveList[pickedPlayerAboveIndex].GetComponent<Player>();
-                                        pickedPlayerAbove.isBelow = false;
                                         pickedPlayerAbove.arrow.SetActive(true);
                                         isFound = true;
                                     }
                                     else
                                     {
                                         playerAboveList[i].GetComponent<Player>().arrow.SetActive(false);
-                                    }
 
+                                    }
                                 }
 
                             }
+
+
                         }
+                        else
+                        {
+                            pickedPlayerAboveIndex = i + 1;
+                            bool isFirst = true;
+                            if (playerAboveList[pickedPlayerAboveIndex].GetComponent<Player>().transform.position.y >= blockY)
+                            {
+                                Debug.Log("Girdi2");
+
+                                pickedPlayerAbove = playerAboveList[pickedPlayerAboveIndex].GetComponent<Player>();
+                                pickedPlayerAbove.arrow.SetActive(true);
+                                isFound = true;
+
+                            }
+                            else
+                            {
+                                for (int k = 0; k < playerAboveList.Count; k++)
+                                {
+
+                                    if (!isFound)
+                                    {
+                                        pickedPlayerAboveIndex = k;
+                                        if (playerAboveList[pickedPlayerAboveIndex].GetComponent<Player>().transform.position.y >= blockY)
+                                        {
+                                            Debug.Log("Girdi3.");
+                                            pickedPlayerAbove = playerAboveList[pickedPlayerAboveIndex].GetComponent<Player>();
+                                            pickedPlayerAbove.arrow.SetActive(true);
+                                            isFound = true;
+                                        }
+                                        else
+                                        {
+                                            playerAboveList[i].GetComponent<Player>().arrow.SetActive(false);
+                                        }
+
+                                    }
+
+                                }
+                            }
+
+                        }
+                        isEntered = true;
 
                     }
-                    isEntered = true;
-
+                    else
+                    {
+                        playerAboveList[i].GetComponent<Player>().arrow.SetActive(false);
+                    }
                 }
-                else
-                {
-                    playerAboveList[i].GetComponent<Player>().arrow.SetActive(false);
-                }
-            }
-            i++;
         }
+      
         if (!isFound)
         {
             isFinishedAbove = true;
@@ -348,7 +338,6 @@ public class PlayersMulti : MonoBehaviour
         }
         if (isCurrentPuckAboveBlock())
         {
-            Debug.Log("lolita");
             PickNewPlayerBelow();
         }
     }
@@ -417,8 +406,6 @@ public class PlayersMulti : MonoBehaviour
                                     Debug.Log("Girdi1.");
 
                                     pickedPlayerBelow = playerBelowList[pickedPlayerBelowIndex].GetComponent<Player>();
-                                    pickedPlayerBelow.isBelow = true;
-
                                     pickedPlayerBelow.arrow.SetActive(true);
                                     isFound = true;
                                 }
@@ -442,8 +429,6 @@ public class PlayersMulti : MonoBehaviour
                             Debug.Log("Girdi2");
 
                             pickedPlayerBelow = playerBelowList[pickedPlayerBelowIndex].GetComponent<Player>();
-                            pickedPlayerBelow.isBelow = true;
-
                             pickedPlayerBelow.arrow.SetActive(true);
                             isFound = true;
 
@@ -460,8 +445,6 @@ public class PlayersMulti : MonoBehaviour
                                     {
                                         Debug.Log("Girdi3.");
                                         pickedPlayerBelow = playerBelowList[pickedPlayerBelowIndex].GetComponent<Player>();
-                                        pickedPlayerBelow.isBelow = true;
-
                                         pickedPlayerBelow.arrow.SetActive(true);
                                         isFound = true;
                                     }
@@ -529,7 +512,6 @@ public class PlayersMulti : MonoBehaviour
             else
             {
                 secilmisPlayer.rb.velocity = new Vector2(0, 0);
-                secilmisPlayer.isBelow = false;
                 secilmisPlayer.arrow.SetActive(true);
                 hasStartedAbove = false;
             }
@@ -581,7 +563,6 @@ public class PlayersMulti : MonoBehaviour
                 else
                 {
                     secilmisPlayer.rb.velocity = new Vector2(0, 0);
-                    secilmisPlayer.isBelow = false;
                     secilmisPlayer.arrow.SetActive(true);
                 }
 
@@ -616,7 +597,6 @@ public class PlayersMulti : MonoBehaviour
             else
             {
                 secilmisPlayer.rb.velocity = new Vector2(0, 0);
-                secilmisPlayer.isBelow = true;
                 secilmisPlayer.arrow.SetActive(true);
                 hasStartedBelow = false;
             }
@@ -668,7 +648,6 @@ public class PlayersMulti : MonoBehaviour
                 else
                 {
                     secilmisPlayer.rb.velocity = new Vector2(0, 0);
-                    secilmisPlayer.isBelow = true;
                     secilmisPlayer.arrow.SetActive(true);
                 }
 
