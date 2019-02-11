@@ -373,6 +373,16 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2089878365672052605, guid: 2c5aa2d324f223a4cae5798a0dc1c73f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2041032997}
+    - target: {fileID: 2089878365672052605, guid: 2c5aa2d324f223a4cae5798a0dc1c73f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenMultiplayerScene
+      objectReference: {fileID: 0}
     - target: {fileID: 2089878366080083141, guid: 2c5aa2d324f223a4cae5798a0dc1c73f,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -401,6 +411,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 12800000, guid: 87c316b602156405d92e616621658222,
         type: 3}
+    - target: {fileID: 2089878367309777762, guid: 2c5aa2d324f223a4cae5798a0dc1c73f,
+        type: 3}
+      propertyPath: m_Text
+      value: Multi
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c5aa2d324f223a4cae5798a0dc1c73f, type: 3}
 --- !u!1 &986700916 stripped
@@ -1067,7 +1082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbd3c206abe58514081001c2aa1e312e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 15, guid: 7f35236e0d3bf694da3beedabb2b6f43, type: 3}
+  player: {fileID: 2232240821262404299, guid: 55cd1990bd98c0247a0d0aac8a8676c1, type: 3}
   moveSpeed: 2
   turnSpeed: -150
   blockLeft: {fileID: 1608216277}

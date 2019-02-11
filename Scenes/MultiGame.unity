@@ -155,8 +155,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb863d6bb5771d4fbf737ebe3aabe97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAbove: {fileID: 15, guid: 7f35236e0d3bf694da3beedabb2b6f43, type: 3}
-  playerBelow: {fileID: 15, guid: 7f35236e0d3bf694da3beedabb2b6f43, type: 3}
+  playerAbove: {fileID: 2232240821262404299, guid: 55cd1990bd98c0247a0d0aac8a8676c1,
+    type: 3}
+  playerBelow: {fileID: 2232240821262404299, guid: 55cd1990bd98c0247a0d0aac8a8676c1,
+    type: 3}
   moveSpeed: 2
   turnSpeed: -150
   blockLeft: {fileID: 1608216277}
