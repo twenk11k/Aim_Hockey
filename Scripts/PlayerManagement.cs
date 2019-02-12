@@ -345,8 +345,7 @@ public class PlayerManagement : MonoBehaviour
     }
     private void TouchControl(Player secilmisPlayer)
     {
-        Rect bounds = new Rect(0, blockY, Screen.width, Screen.height/2);
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved && bounds.Contains(Input.mousePosition))
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
         {
             var touchDeltaPosition = Input.GetTouch(0).deltaPosition;
             //Debug.Log(Mathf.Clamp(touchDeltaPosition.x, -1, 1));
