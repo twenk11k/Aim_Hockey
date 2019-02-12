@@ -263,10 +263,8 @@ public class PlayerManagement : MonoBehaviour
 
     private void LaunchOnMouseClick(Player secilmisPlayer)
     {
-        Rect bounds = new Rect(0, blockY, Screen.width, Screen.height / 2);
-
         // Mouse click 
-        if (Input.GetButtonDown("Submit") && bounds.Contains(Input.mousePosition))
+        if (Input.GetButtonDown("Submit"))
         {
             if (!hasStarted)
             {
@@ -292,7 +290,7 @@ public class PlayerManagement : MonoBehaviour
 
         }
         // Touch
-        if (Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetTouch(0).phase == TouchPhase.Canceled) && bounds.Contains(Input.mousePosition))
+        if (Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetTouch(0).phase == TouchPhase.Canceled))
         {
             if (!hasStarted)
             {
