@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,6 +14,14 @@ public class MenuButton : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
+        OpenFirst();
+    }
+
+    private void OpenFirst()
+    {
+        animator.SetTrigger("openFirst");
+        animator.SetBool("selected", true);
+
     }
 
     public void TriggerAnimation()
@@ -40,5 +49,4 @@ public class MenuButton : MonoBehaviour
         TriggerAnimation();
         SceneManager.LoadScene("MultiGame");
     }
-
 }

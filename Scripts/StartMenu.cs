@@ -15,4 +15,13 @@ public class StartMenu : MonoBehaviour
         SceneManager.LoadScene("MultiGame");
 
     }
+  
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("StartMenu");
+        }
+
+    }
 }
