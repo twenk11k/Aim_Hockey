@@ -10,7 +10,7 @@ public class MenuButtonController : MonoBehaviour {
 	[SerializeField] int maxIndex;
 	public AudioSource audioSource;
 
-	void Start () {
+	void Start () { 
 		audioSource = GetComponent<AudioSource>();
 	}
 	
