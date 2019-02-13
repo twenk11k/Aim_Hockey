@@ -438,7 +438,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: "\xA9 Selim Demiral"
+  m_text: "\xA9 bouvar"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 04844474b2e47c741a32c4bc99b8e009, type: 2}
   m_sharedMaterial: {fileID: 21992170330541188, guid: 04844474b2e47c741a32c4bc99b8e009,
@@ -508,10 +508,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -192.47778, w: 0}
   m_textInfo:
     textComponent: {fileID: 388129449}
-    characterCount: 15
+    characterCount: 8
     spriteCount: 0
-    spaceCount: 2
-    wordCount: 3
+    spaceCount: 1
+    wordCount: 2
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -1817,7 +1817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisIndex: 0
-  audioClip: {fileID: 8300000, guid: 89021c6ae0375f841928b4b4216eba48, type: 3}
+  audioClip: {fileID: 8300000, guid: f574e5c6260373e458cfba0e9ed121d8, type: 3}
 --- !u!114 &4225678254663691837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1831,7 +1831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisIndex: 0
-  audioClip: {fileID: 8300000, guid: 89021c6ae0375f841928b4b4216eba48, type: 3}
+  audioClip: {fileID: 8300000, guid: f574e5c6260373e458cfba0e9ed121d8, type: 3}
 --- !u!114 &4225678254725863538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1845,7 +1845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisIndex: 0
-  audioClip: {fileID: 8300000, guid: 89021c6ae0375f841928b4b4216eba48, type: 3}
+  audioClip: {fileID: 8300000, guid: f574e5c6260373e458cfba0e9ed121d8, type: 3}
 --- !u!1 &4369065082631338362
 GameObject:
   m_ObjectHideFlags: 0

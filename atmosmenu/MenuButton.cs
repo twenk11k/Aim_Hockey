@@ -26,7 +26,9 @@ public class MenuButton : MonoBehaviour
 
     public void TriggerAnimation()
     {
-      //  animator.SetBool("selected",true);
+        //  animator.SetBool("selected",true);
+        PlaySound();
+
     }
 
     public void SetDeselect()
@@ -41,11 +43,13 @@ public class MenuButton : MonoBehaviour
 
     public void Open1Player()
     {
+        PlaySound();
         TriggerAnimation();
         SceneManager.LoadScene("SoloGame");
     }
     public void Open2Players()
     {
+        PlaySound();
         TriggerAnimation();
         SceneManager.LoadScene("MultiGame");
     }
