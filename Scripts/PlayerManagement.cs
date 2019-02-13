@@ -50,6 +50,10 @@ public class PlayerManagement : MonoBehaviour
     {
         SceneManager.LoadScene("MultiGame");
     }
+    public void OpenStartMenu()
+    {
+        SceneManager.LoadScene("StartMenu");
+    }
 
     private bool isAnimPlayed = false;
     // Update is called once per frame
