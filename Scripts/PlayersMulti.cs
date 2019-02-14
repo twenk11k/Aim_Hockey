@@ -146,8 +146,11 @@ public class PlayersMulti : MonoBehaviour
     {
         if (!isAnimPlayed)
         {
-            UpdateAbove();
+            // First player
             UpdateBelow();
+            // Second player
+            UpdateAbove();
+        
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -162,20 +165,19 @@ public class PlayersMulti : MonoBehaviour
             {
 
                 LaunchOnMouseClickAbove(pickedPlayerAbove);
+                CheckForeignPucksForAbove();
 
                 if (pickedPlayerAbove.arrow.activeSelf)
                 {
                     TouchControl(pickedPlayerAbove, false);
                 }
 
-                CheckForeignPucksForAbove();
 
             }
             if (isAllPucksBelowBlock())
             {
                 isPickedInBelow();
-
-        }
+            }
 
 
         if (isCurrentPuckBelowBlock())
@@ -241,16 +243,18 @@ public class PlayersMulti : MonoBehaviour
         if (pickedPlayerAbove.transform.position.y < blockY)
         {
             pickedPlayerAbove.arrow.SetActive(false);
-            for (int i = 0; i < playerAboveList.Count; i++)
+           /* for (int i = 0; i < playerAboveList.Count; i++)
             {
                 if (pickedPlayerAbove == playerAboveList[i])
                 {
-                    playerAboveList.RemoveAt(i);
                     GameObject playerBelowObj = playerAboveList[i];
                     playerBelowObj.GetComponent<Player>().RotatePlayer(false, 180);
                     playerBelowList.Add(playerBelowObj);
+                    playerAboveList.RemoveAt(i);
+
                 }
             }
+            */
             PickNewPlayerAbove();
         }
     }
@@ -363,17 +367,17 @@ public class PlayersMulti : MonoBehaviour
             {
 
                 LaunchOnMouseClickBelow(pickedPlayerBelow);
+                CheckForeignPucksForBelow();
+
                 if (pickedPlayerBelow.arrow.activeSelf)
                 {
                     TouchControl(pickedPlayerBelow, true);
                 }
-                CheckForeignPucksForBelow();
             }
             if (isAllPucksAboveBlock())
             {
                 isPickedInAbove();
-
-        }
+            }
 
         if (isCurrentPuckAboveBlock())
         {
@@ -456,16 +460,18 @@ public class PlayersMulti : MonoBehaviour
         if (pickedPlayerBelow.transform.position.y >= blockY)
         {
             pickedPlayerBelow.arrow.SetActive(false);
-            for (int i = 0; i < playerBelowList.Count; i++)
+           /* for (int i = 0; i < playerBelowList.Count; i++)
             {
                 if (pickedPlayerBelow == playerBelowList[i])
                 {
-                    playerBelowList.RemoveAt(i);
                     GameObject playerAboveObj = playerBelowList[i];
                     playerAboveObj.GetComponent<Player>().RotatePlayer(true, 180);
                     playerAboveList.Add(playerAboveObj);
+                    playerBelowList.RemoveAt(i);
+
                 }
             }
+            */
             PickNewPlayerBelow();
         }
     }
