@@ -144,8 +144,11 @@ public class PlayersMulti : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateAbove();
-        UpdateBelow();
+        if (!isAnimPlayed)
+        {
+            UpdateAbove();
+            UpdateBelow();
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             SceneManager.LoadScene("MultiGame");
@@ -171,8 +174,9 @@ public class PlayersMulti : MonoBehaviour
             if (isAllPucksBelowBlock())
             {
                 isPickedInBelow();
-            }
-        
+
+        }
+
 
         if (isCurrentPuckBelowBlock())
         {
@@ -237,6 +241,16 @@ public class PlayersMulti : MonoBehaviour
         if (pickedPlayerAbove.transform.position.y < blockY)
         {
             pickedPlayerAbove.arrow.SetActive(false);
+            for (int i = 0; i < playerAboveList.Count; i++)
+            {
+                if (pickedPlayerAbove == playerAboveList[i])
+                {
+                    playerAboveList.RemoveAt(i);
+                    GameObject playerBelowObj = playerAboveList[i];
+                    playerBelowObj.GetComponent<Player>().RotatePlayer(false, 180);
+                    playerBelowList.Add(playerBelowObj);
+                }
+            }
             PickNewPlayerAbove();
         }
     }
@@ -358,8 +372,9 @@ public class PlayersMulti : MonoBehaviour
             if (isAllPucksAboveBlock())
             {
                 isPickedInAbove();
-            }
-          
+
+        }
+
         if (isCurrentPuckAboveBlock())
         {
             PickNewPlayerBelow();
@@ -441,6 +456,16 @@ public class PlayersMulti : MonoBehaviour
         if (pickedPlayerBelow.transform.position.y >= blockY)
         {
             pickedPlayerBelow.arrow.SetActive(false);
+            for (int i = 0; i < playerBelowList.Count; i++)
+            {
+                if (pickedPlayerBelow == playerBelowList[i])
+                {
+                    playerBelowList.RemoveAt(i);
+                    GameObject playerAboveObj = playerBelowList[i];
+                    playerAboveObj.GetComponent<Player>().RotatePlayer(true, 180);
+                    playerAboveList.Add(playerAboveObj);
+                }
+            }
             PickNewPlayerBelow();
         }
     }
