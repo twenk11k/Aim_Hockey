@@ -38,7 +38,7 @@ public class MenuButton : MonoBehaviour
     }
     public void PlaySound()
     {
-        AudioSource.PlayClipAtPoint(audioClip, Camera.main.transform.position, 0.1f);
+        AudioSource.PlayClipAtPoint(audioClip, Camera.main.transform.position, 0.7f);
     }
 
     public void Open1Player()

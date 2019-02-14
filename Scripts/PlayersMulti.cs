@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 public class PlayersMulti : MonoBehaviour
 {
 
@@ -35,6 +35,8 @@ public class PlayersMulti : MonoBehaviour
     private bool isFinishedAbove = false;
     private bool isFinishedBelow = false;
 
+    public Text winText;
+    public GameObject restartCanvas;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +44,6 @@ public class PlayersMulti : MonoBehaviour
         blockY = blockLeft.transform.position.y;
         blockLeft.transform.position = new Vector2(Random.Range(-11f, -9.5f), blockLeft.transform.position.y);
         blockRight.transform.position = new Vector2(Random.Range(3f, 4.5f), blockLeft.transform.position.y);
-
 
         totalSizePucksAbove = Random.Range(3, 5);
         totalSizePucksBelow = Random.Range(2, 4);
@@ -153,36 +154,35 @@ public class PlayersMulti : MonoBehaviour
 
     private void UpdateAbove()
     {
-        if (!isFinishedAbove || !isAllPucksBelowBlock())
-        {
-
-            LaunchOnMouseClickAbove(pickedPlayerAbove);
-
-            if (pickedPlayerAbove.arrow.activeSelf)
+      
+            if (!isFinishedAbove || !isAllPucksBelowBlock())
             {
-                TouchControl(pickedPlayerAbove,false);
+
+                LaunchOnMouseClickAbove(pickedPlayerAbove);
+
+                if (pickedPlayerAbove.arrow.activeSelf)
+                {
+                    TouchControl(pickedPlayerAbove, false);
+                }
+
+                CheckForeignPucksForAbove();
+
             }
+            if (isAllPucksBelowBlock())
+            {
+                isPickedInBelow();
+            }
+        
 
-            CheckForeignPucksForAbove();
-
-        }
-        if (isAllPucksBelowBlock())
-        {
-            isPickedInBelow();
-        }
-        if (isAllPucksBelowBlock() && !isAnimPlayed)
-        {
-            Debug.Log("orama");
-            blockLeft.GetComponent<Animation>().Play();
-            isAnimPlayed = true;
-        }
         if (isCurrentPuckBelowBlock())
         {
             PickNewPlayerAbove();
         }
+        if (isAllPucksBelowBlock() && !isAnimPlayed)
+        {
+            finishGame(false);
 
-
-
+        }
     }
 
     private void CheckForeignPucksForAbove()
@@ -344,30 +344,54 @@ public class PlayersMulti : MonoBehaviour
 
     private void UpdateBelow()
     {
-        if (!isFinishedBelow || !isAllPucksAboveBlock())
-        {
-
-            LaunchOnMouseClickBelow(pickedPlayerBelow);
-            if (pickedPlayerBelow.arrow.activeSelf)
+     
+            if (!isFinishedBelow || !isAllPucksAboveBlock())
             {
-                TouchControl(pickedPlayerBelow,true);
+
+                LaunchOnMouseClickBelow(pickedPlayerBelow);
+                if (pickedPlayerBelow.arrow.activeSelf)
+                {
+                    TouchControl(pickedPlayerBelow, true);
+                }
+                CheckForeignPucksForBelow();
             }
-            CheckForeignPucksForBelow();
-        }
-        if (isAllPucksAboveBlock())
-        {
-            isPickedInAbove();
-        }
-        if (isAllPucksAboveBlock() && !isAnimPlayed)
-        {
-            Debug.Log("orama");
-            blockLeft.GetComponent<Animation>().Play();
-            isAnimPlayed = true;
-        }
+            if (isAllPucksAboveBlock())
+            {
+                isPickedInAbove();
+            }
+          
         if (isCurrentPuckAboveBlock())
         {
             PickNewPlayerBelow();
         }
+        if (isAllPucksAboveBlock() && !isAnimPlayed)
+        {
+            finishGame(true);
+        }
+
+    }
+
+    private void finishGame(bool isBelow)
+    {
+        Debug.Log("orama");
+        blockLeft.GetComponent<Animation>().Play();
+        isAnimPlayed = true;
+        restartCanvas.SetActive(true);
+        if (isBelow)
+        {
+            winText.text = "Player 1 Won!";
+        } else
+        {
+            winText.text = "Player 2 Won!";
+        }
+    }
+    public void RestartScene()
+    {
+        SceneManager.LoadScene("MultiGame");
+    }
+    public void LoadStartMenuScene()
+    {
+        SceneManager.LoadScene("StartMenu");
     }
     private void CheckForeignPucksForBelow()
     {
