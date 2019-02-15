@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
         // Debug.Log("carpisma adi: " + collision.collider.name);
         if (puckClip != null)
         {
-            AudioSource.PlayClipAtPoint(puckClip, Camera.main.transform.position, 0.2f);
+          //  AudioSource.PlayClipAtPoint(puckClip, Camera.main.transform.position, 0.2f);
 
         }
     }
