@@ -118,7 +118,7 @@ public class PlayersMulti : MonoBehaviour
 
             if (i + 1 != playerAboveList.Count)
             {
-                if (playerAboveList[i + 1].GetComponent<Player>().transform.position.y <= pickedPlayerAbove.transform.position.y)
+                if (playerAboveList[i + 1].GetComponent<Player>().transform.position.y < pickedPlayerAbove.transform.position.y)
                 {
                     pickedPlayerAbove = playerAboveList[i + 1].GetComponent<Player>();
                     pickedPlayerAboveIndex = i + 1;
@@ -147,10 +147,11 @@ public class PlayersMulti : MonoBehaviour
     {
         if (!isAnimPlayed)
         {
-            // First player
+
             CheckForeignPucksForBelow();
             CheckForeignPucksForAbove();
 
+            // First player
             UpdateBelow();
             // Second player
             UpdateAbove();
@@ -171,25 +172,13 @@ public class PlayersMulti : MonoBehaviour
 
         } else
         {
-             isPickedInBelow();
-     
-                LaunchOnMouseClickAndTouchAbove();
-                if (pickedPlayerAbove.arrow.activeSelf)
-                {
-                    TouchControl(pickedPlayerAbove, false);
+            LaunchOnMouseClickAndTouchAbove();
 
-                }
- 
+            if (pickedPlayerAbove.arrow.activeSelf)
+            {
+               TouchControl(pickedPlayerAbove, false);
+            }
         }
-
-       // if (!isFinishedAbove || !isAllPucksBelowBlock())
-            
-           
-
-     //   if (isCurrentPuckBelowBlock())
-     //   {
-     //       PickNewPlayerAbove();
-     //   }
     
     }
 
@@ -200,15 +189,16 @@ public class PlayersMulti : MonoBehaviour
             if (playerBelowList[i].transform.position.y >= blockY)
             {
                 GameObject playerBelowObj = playerBelowList[i];
-                
+                playerBelowList.RemoveAt(i);
+
                 playerBelowObj.GetComponent<Player>().RotatePlayer(false, 180);
                 playerAboveList.Add(playerBelowObj);
-                playerBelowList.RemoveAt(i);
             }
         }
         if (pickedPlayerBelow.transform.position.y >= blockY)
         {
             pickedPlayerBelow.arrow.SetActive(false);
+            pickedPlayerBelowIndex = 0;
             PickNewPlayerBelow();
         }
     }
@@ -245,7 +235,7 @@ public class PlayersMulti : MonoBehaviour
         if (pickedPlayerAbove.transform.position.y < blockY)
         {
             pickedPlayerAbove.arrow.SetActive(false);
-         
+            pickedPlayerAboveIndex = 0;
             PickNewPlayerAbove();
         }
     }
@@ -271,7 +261,7 @@ public class PlayersMulti : MonoBehaviour
                                 {
                                     if (playerAboveList[z].GetComponent<Player>().transform.position.y >= blockY)
                                     {
-                                    //   Debug.Log("Girdi1.");
+                                       Debug.Log("Girdi1.");
                                     pickedPlayerAboveIndex = z;
                                     pickedPlayerAbove = playerAboveList[pickedPlayerAboveIndex].GetComponent<Player>();
                                         pickedPlayerAbove.arrow.SetActive(true);
@@ -293,7 +283,7 @@ public class PlayersMulti : MonoBehaviour
                             bool isFirst = true;
                             if (playerAboveList[i+1].GetComponent<Player>().transform.position.y >= blockY)
                             {
-                            //  Debug.Log("Girdi2");
+                             Debug.Log("Girdi2");
                             pickedPlayerAboveIndex = i + 1;
                             pickedPlayerAbove = playerAboveList[pickedPlayerAboveIndex].GetComponent<Player>();
                                 pickedPlayerAbove.arrow.SetActive(true);
@@ -309,7 +299,7 @@ public class PlayersMulti : MonoBehaviour
                                     {
                                         if (playerAboveList[k].GetComponent<Player>().transform.position.y >= blockY)
                                         {
-                                        //      Debug.Log("Girdi3.");
+                                              Debug.Log("Girdi3.");
                                         pickedPlayerAboveIndex = k;
 
                                         pickedPlayerAbove = playerAboveList[pickedPlayerAboveIndex].GetComponent<Player>();
@@ -330,13 +320,14 @@ public class PlayersMulti : MonoBehaviour
                         isEntered = true;
 
                     }
-                    else
-                    {
-                        playerAboveList[i].GetComponent<Player>().arrow.SetActive(false);
-                    }
+                    
                 }
         }
-      
+        if (!isEntered && playerBelowList.Count > 0 && playerAboveList.Count > 0)
+        {
+            pickedPlayerAboveIndex = 0;
+            PickNewPlayerAbove();
+        }
         if (!isFound)
         {
             isFinishedAbove = true;
@@ -357,7 +348,7 @@ public class PlayersMulti : MonoBehaviour
             finishGame(true);
         } else
         {
-            isPickedInAbove();
+            // isPickedInAbove();
                 LaunchOnMouseClickAndTouchBelow();
                 if (pickedPlayerBelow.arrow.activeSelf)
                 {
@@ -367,10 +358,7 @@ public class PlayersMulti : MonoBehaviour
 
  
 
-      //  if (isCurrentPuckAboveBlock())
-      //  {
-      //      PickNewPlayerBelow();
-      //  } 
+      
 
      
 
@@ -407,14 +395,15 @@ public class PlayersMulti : MonoBehaviour
             if (playerAboveList[i].transform.position.y < blockY)
             {
                 GameObject playerAboveObj = playerAboveList[i];
+                playerAboveList.RemoveAt(i);
                 playerAboveObj.GetComponent<Player>().RotatePlayer(true, 180);
                 playerBelowList.Add(playerAboveObj);
-                playerAboveList.RemoveAt(i);
             }
         }
         if (pickedPlayerAbove.transform.position.y < blockY)
         {
             pickedPlayerAbove.arrow.SetActive(false);
+            pickedPlayerAboveIndex = 0;
             PickNewPlayerAbove();
         }
     }
@@ -489,7 +478,7 @@ public class PlayersMulti : MonoBehaviour
                             {
                                 if (playerBelowList[z].GetComponent<Player>().transform.position.y < blockY)
                                 {
-                                    Debug.Log("Girdi1.");
+                                  //  Debug.Log("Girdi1.");
                                     pickedPlayerBelowIndex = z;
                                     pickedPlayerBelow = playerBelowList[pickedPlayerBelowIndex].GetComponent<Player>();
                                     pickedPlayerBelow.arrow.SetActive(true);
@@ -511,7 +500,7 @@ public class PlayersMulti : MonoBehaviour
                         bool isFirst = true;
                         if (playerBelowList[i + 1].GetComponent<Player>().transform.position.y < blockY)
                         {
-                            Debug.Log("Girdi2");
+                         //   Debug.Log("Girdi2");
                             pickedPlayerBelowIndex = i + 1;
                             pickedPlayerBelow = playerBelowList[pickedPlayerBelowIndex].GetComponent<Player>();
                             pickedPlayerBelow.arrow.SetActive(true);
@@ -527,7 +516,7 @@ public class PlayersMulti : MonoBehaviour
                                 {
                                     if (playerBelowList[k].GetComponent<Player>().transform.position.y < blockY)
                                     {
-                                        Debug.Log("Girdi3.");
+                                   //     Debug.Log("Girdi3.");
                                         pickedPlayerBelowIndex = k;
                                         pickedPlayerBelow = playerBelowList[pickedPlayerBelowIndex].GetComponent<Player>();
                                         pickedPlayerBelow.arrow.SetActive(true);
@@ -547,17 +536,16 @@ public class PlayersMulti : MonoBehaviour
                     isEntered = true;
 
                 }
-                else
-                {
-                    Debug.Log("else panpa");
-                    playerBelowList[i].GetComponent<Player>().arrow.SetActive(false);
-
-                }
+               
             }
 
         }
 
-        
+         if (!isEntered && playerBelowList.Count>0 && playerAboveList.Count > 0)
+         {
+            pickedPlayerBelowIndex = 0;
+            PickNewPlayerBelow();
+         }
         if (!isFound)
         {
             isFinishedBelow = true;
@@ -582,54 +570,20 @@ public class PlayersMulti : MonoBehaviour
         // Touch
         if (Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetTouch(0).phase == TouchPhase.Canceled) && bounds.Contains(Input.mousePosition))
         {
-            if (!hasStartedAbove)
-            {
-                if (!isMovedAbove)
-                {
-                    float fRotation = pickedPlayerAbove.rb.rotation * Mathf.Deg2Rad;
-                    float fX = Mathf.Sin(fRotation);
-                    float fY = Mathf.Cos(fRotation);
-                    Vector2 v2 = new Vector2(fY * 10, fX * 10);
-                    pickedPlayerAbove.rb.velocity = v2;
-                    // Debug.Log("e geldi 1");
 
-                    pickedPlayerAbove.arrow.SetActive(false);
+            float fRotation = pickedPlayerAbove.rb.rotation * Mathf.Deg2Rad;
+            float fX = Mathf.Sin(fRotation);
+            float fY = Mathf.Cos(fRotation);
+            Vector2 v2 = new Vector2(fY * 10, fX * 10);
+            pickedPlayerAbove.rb.velocity = v2;
+            // Debug.Log("e geldi 1");
 
-                    hasStartedAbove = true;
-                    isMovedAbove = true;
+            pickedPlayerAbove.arrow.SetActive(false);
 
-                    PickNewPlayerAbove();
-                }
-                else
-                {
-                    isMovedAbove = false;
-                }
-              
-            }
-            else
-            {
-                if (pickedPlayerAbove.arrow.activeSelf)
-                {
-                    float fRotation = pickedPlayerAbove.rb.rotation * Mathf.Deg2Rad;
-                    float fX = Mathf.Sin(fRotation);
-                    float fY = Mathf.Cos(fRotation);
-                    Vector2 v2 = new Vector2(fY * 10, fX * 10);
+            hasStartedAbove = true;
+            isMovedAbove = true;
 
-                    pickedPlayerAbove.rb.velocity = v2;
-                  //  Debug.Log("e geldi 2");
-
-                    pickedPlayerAbove.arrow.SetActive(false);
-                    PickNewPlayerAbove();
-
-                }
-                else
-                {
-                    pickedPlayerAbove.rb.velocity = new Vector2(0, 0);
-                    pickedPlayerAbove.arrow.SetActive(true);
-                }
-
-                hasStartedAbove = false;
-            }
+            PickNewPlayerAbove();
         }
 
     }
@@ -638,62 +592,28 @@ public class PlayersMulti : MonoBehaviour
     {
         Rect bounds = new Rect(0, blockY, Screen.width, Screen.height / 2);
 
-       
+
         // Touch
         if (Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetTouch(0).phase == TouchPhase.Canceled) && bounds.Contains(Input.mousePosition))
         {
-            if (!hasStartedBelow)
-            {
-                if (!isMovedBelow)
-                {
-                    float fRotation = pickedPlayerBelow.rb.rotation * Mathf.Deg2Rad;
-                    float fX = Mathf.Sin(fRotation);
-                    float fY = Mathf.Cos(fRotation);
-                    Vector2 v2 = new Vector2(fY * 10, fX * 10);
-                    pickedPlayerBelow.rb.velocity = v2;
-                    //  Debug.Log("e geldi 1");
 
-                    pickedPlayerBelow.arrow.SetActive(false);
+            float fRotation = pickedPlayerBelow.rb.rotation * Mathf.Deg2Rad;
+            float fX = Mathf.Sin(fRotation);
+            float fY = Mathf.Cos(fRotation);
+            Vector2 v2 = new Vector2(fY * 10, fX * 10);
+            pickedPlayerBelow.rb.velocity = v2;
+            //  Debug.Log("e geldi 1");
 
-                    hasStartedBelow = true;
-                    isMovedBelow = true;
+            pickedPlayerBelow.arrow.SetActive(false);
 
-                    PickNewPlayerBelow();
-                }
-                else
-                {
-                  //  Debug.Log("e geldi 2");
+            hasStartedBelow = true;
+            isMovedBelow = true;
 
-                    isMovedBelow = false;
-                }
-               
-            }
-            else
-            {
-                if (pickedPlayerBelow.arrow.activeSelf)
-                {
-                    float fRotation = pickedPlayerBelow.rb.rotation * Mathf.Deg2Rad;
-                    float fX = Mathf.Sin(fRotation);
-                    float fY = Mathf.Cos(fRotation);
-                    Vector2 v2 = new Vector2(fY * 10, fX * 10);
+            PickNewPlayerBelow();
 
-                    pickedPlayerBelow.rb.velocity = v2;
-                //    Debug.Log("e geldi 3");
-
-                    pickedPlayerBelow.arrow.SetActive(false);
-                    PickNewPlayerBelow();
-
-                }
-                else
-                {
-                    pickedPlayerBelow.rb.velocity = new Vector2(0, 0);
-                    pickedPlayerBelow.arrow.SetActive(true);
-                }
-               // Debug.Log("e geldi 4");
-
-                hasStartedBelow = false;
-            }
         }
+    
+        
 
     }
     private void TouchControl(Player secilmisPlayer,bool isSolo)
