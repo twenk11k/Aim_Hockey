@@ -571,19 +571,54 @@ public class PlayersMulti : MonoBehaviour
         if (Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetTouch(0).phase == TouchPhase.Canceled) && bounds.Contains(Input.mousePosition))
         {
 
-            float fRotation = pickedPlayerAbove.rb.rotation * Mathf.Deg2Rad;
-            float fX = Mathf.Sin(fRotation);
-            float fY = Mathf.Cos(fRotation);
-            Vector2 v2 = new Vector2(fY * 10, fX * 10);
-            pickedPlayerAbove.rb.velocity = v2;
-            // Debug.Log("e geldi 1");
+            if (!hasStartedAbove)
+            {
+                if (!isMovedAbove)
+                {
+                    float fRotation = pickedPlayerAbove.rb.rotation * Mathf.Deg2Rad;
+                    float fX = Mathf.Sin(fRotation);
+                    float fY = Mathf.Cos(fRotation);
+                    Vector2 v2 = new Vector2(fY * 10, fX * 10);
+                    pickedPlayerAbove.rb.velocity = v2;
+                    // Debug.Log("e geldi 1");
 
-            pickedPlayerAbove.arrow.SetActive(false);
+                    pickedPlayerAbove.arrow.SetActive(false);
 
-            hasStartedAbove = true;
-            isMovedAbove = true;
+                    hasStartedAbove = true;
+                    isMovedAbove = true;
 
-            PickNewPlayerAbove();
+                    PickNewPlayerAbove();
+                }
+                else
+                {
+                    isMovedAbove = false;
+                }
+
+            }
+            else
+            {
+                if (pickedPlayerAbove.arrow.activeSelf)
+                {
+                    float fRotation = pickedPlayerAbove.rb.rotation * Mathf.Deg2Rad;
+                    float fX = Mathf.Sin(fRotation);
+                    float fY = Mathf.Cos(fRotation);
+                    Vector2 v2 = new Vector2(fY * 10, fX * 10);
+
+                    pickedPlayerAbove.rb.velocity = v2;
+                    //  Debug.Log("e geldi 2");
+
+                    pickedPlayerAbove.arrow.SetActive(false);
+                    PickNewPlayerAbove();
+
+                }
+                else
+                {
+                    pickedPlayerAbove.rb.velocity = new Vector2(0, 0);
+                    pickedPlayerAbove.arrow.SetActive(true);
+                }
+
+                hasStartedAbove = false;
+            }
         }
 
     }
@@ -597,19 +632,57 @@ public class PlayersMulti : MonoBehaviour
         if (Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetTouch(0).phase == TouchPhase.Canceled) && bounds.Contains(Input.mousePosition))
         {
 
-            float fRotation = pickedPlayerBelow.rb.rotation * Mathf.Deg2Rad;
-            float fX = Mathf.Sin(fRotation);
-            float fY = Mathf.Cos(fRotation);
-            Vector2 v2 = new Vector2(fY * 10, fX * 10);
-            pickedPlayerBelow.rb.velocity = v2;
-            //  Debug.Log("e geldi 1");
+            if (!hasStartedBelow)
+            {
+                if (!isMovedBelow)
+                {
+                    float fRotation = pickedPlayerBelow.rb.rotation * Mathf.Deg2Rad;
+                    float fX = Mathf.Sin(fRotation);
+                    float fY = Mathf.Cos(fRotation);
+                    Vector2 v2 = new Vector2(fY * 10, fX * 10);
+                    pickedPlayerBelow.rb.velocity = v2;
+                    //  Debug.Log("e geldi 1");
 
-            pickedPlayerBelow.arrow.SetActive(false);
+                    pickedPlayerBelow.arrow.SetActive(false);
 
-            hasStartedBelow = true;
-            isMovedBelow = true;
+                    hasStartedBelow = true;
+                    isMovedBelow = true;
 
-            PickNewPlayerBelow();
+                    PickNewPlayerBelow();
+                }
+                else
+                {
+                    //  Debug.Log("e geldi 2");
+
+                    isMovedBelow = false;
+                }
+
+            }
+            else
+            {
+                if (pickedPlayerBelow.arrow.activeSelf)
+                {
+                    float fRotation = pickedPlayerBelow.rb.rotation * Mathf.Deg2Rad;
+                    float fX = Mathf.Sin(fRotation);
+                    float fY = Mathf.Cos(fRotation);
+                    Vector2 v2 = new Vector2(fY * 10, fX * 10);
+
+                    pickedPlayerBelow.rb.velocity = v2;
+                    //    Debug.Log("e geldi 3");
+
+                    pickedPlayerBelow.arrow.SetActive(false);
+                    PickNewPlayerBelow();
+
+                }
+                else
+                {
+                    pickedPlayerBelow.rb.velocity = new Vector2(0, 0);
+                    pickedPlayerBelow.arrow.SetActive(true);
+                }
+                // Debug.Log("e geldi 4");
+
+                hasStartedBelow = false;
+            }
 
         }
     
