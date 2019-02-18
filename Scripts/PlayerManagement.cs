@@ -38,7 +38,7 @@ public class PlayerManagement : MonoBehaviour
     public Text winText;
     public GameObject restartCanvas;
     public Sprite belowArrow,aboveArrow;
-
+    public int aiPuckWaitTime = 2; 
 
     // Start is called before the first frame update
     void Start()
@@ -178,6 +178,9 @@ public class PlayerManagement : MonoBehaviour
             if (!isCoroutineStarted)
             {
                 StartCoroutine(SendPuck());
+            } else
+            {
+                pickedPlayerAbove.transform.Rotate(0, 0,Mathf.Clamp(pickedPlayerAbove.transform.position.x - (blockLeft.transform.position.x + blockRight.transform.position.x)/2,-4,4));
             }
 
             if (pickedPlayerAbove.arrow.activeSelf)
@@ -353,10 +356,6 @@ public class PlayerManagement : MonoBehaviour
                 TouchControl(pickedPlayerBelow);
             }
         }
-
-
-
-
 
 
 
@@ -544,8 +543,11 @@ public class PlayerManagement : MonoBehaviour
     IEnumerator SendPuck()
     {
         isCoroutineStarted = true;
-        yield return new WaitForSeconds(2);
-        pickedPlayerAbove.transform.Rotate(0, 0, Random.Range(-3, -4));
+
+        yield return new WaitForSeconds(aiPuckWaitTime);
+        Debug.Log("blockLeft: "+blockLeft.transform.position.x);
+        Debug.Log("blockRight: " + blockRight.transform.position.x);
+
         isCoroutineStarted = false;
         LaunchAI();
 
