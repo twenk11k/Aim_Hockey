@@ -229,16 +229,7 @@ public class PlayersMulti : MonoBehaviour
         return true;
     }
 
-    // This method for ABOVE
-    private void isPickedInBelow()
-    {
-        if (pickedPlayerAbove.transform.position.y < blockY)
-        {
-            pickedPlayerAbove.arrow.SetActive(false);
-            pickedPlayerAboveIndex = 0;
-            PickNewPlayerAbove();
-        }
-    }
+    
     private void PickNewPlayerAbove()
     {
         bool isEntered = false;
@@ -348,7 +339,6 @@ public class PlayersMulti : MonoBehaviour
             finishGame(true);
         } else
         {
-            // isPickedInAbove();
                 LaunchOnMouseClickAndTouchBelow();
                 if (pickedPlayerBelow.arrow.activeSelf)
                 {
@@ -431,29 +421,7 @@ public class PlayersMulti : MonoBehaviour
         }
         return true;
     }
-    // This method for BELOW
-    private void isPickedInAbove()
-    {
-        if (pickedPlayerBelow.transform.position.y >= blockY)
-        {
-            pickedPlayerBelow.arrow.SetActive(false);
-           /* for (int i = 0; i < playerBelowList.Count; i++)
-            {
-                if (pickedPlayerBelow == playerBelowList[i])
-                {
-                    GameObject playerAboveObj = playerBelowList[i];
-                    playerAboveObj.GetComponent<Player>().RotatePlayer(true, 180);
-                    playerAboveList.Add(playerAboveObj);
-                    playerBelowList.RemoveAt(i);
-
-                }
-            }
-            */
-            PickNewPlayerBelow();
-        }
-    }
-
-
+    
 
     // This method for BELOW
     private void PickNewPlayerBelow()
