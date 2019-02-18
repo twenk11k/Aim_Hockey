@@ -252,7 +252,7 @@ public class PlayersMulti : MonoBehaviour
                                 {
                                     if (playerAboveList[z].GetComponent<Player>().transform.position.y >= blockY)
                                     {
-                                       Debug.Log("Girdi1.");
+                                    //   Debug.Log("Girdi1.");
                                     pickedPlayerAboveIndex = z;
                                     pickedPlayerAbove = playerAboveList[pickedPlayerAboveIndex].GetComponent<Player>();
                                         pickedPlayerAbove.arrow.SetActive(true);
@@ -274,7 +274,7 @@ public class PlayersMulti : MonoBehaviour
                             bool isFirst = true;
                             if (playerAboveList[i+1].GetComponent<Player>().transform.position.y >= blockY)
                             {
-                             Debug.Log("Girdi2");
+                            // Debug.Log("Girdi2");
                             pickedPlayerAboveIndex = i + 1;
                             pickedPlayerAbove = playerAboveList[pickedPlayerAboveIndex].GetComponent<Player>();
                                 pickedPlayerAbove.arrow.SetActive(true);
@@ -290,7 +290,7 @@ public class PlayersMulti : MonoBehaviour
                                     {
                                         if (playerAboveList[k].GetComponent<Player>().transform.position.y >= blockY)
                                         {
-                                              Debug.Log("Girdi3.");
+                                         //     Debug.Log("Girdi3.");
                                         pickedPlayerAboveIndex = k;
 
                                         pickedPlayerAbove = playerAboveList[pickedPlayerAboveIndex].GetComponent<Player>();
@@ -680,7 +680,7 @@ public class PlayersMulti : MonoBehaviour
             else
             {
                 zVal = - Mathf.Clamp(touchDeltaPosition.x, -1, 1) * turnSpeed * Time.deltaTime;
-
+              //  Debug.Log("z degeri: "+zVal.ToString());
             }
             secilmisPlayer.transform.Rotate(0, 0,zVal);
             if (isSolo)
