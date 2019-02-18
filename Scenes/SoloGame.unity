@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 916035330}
   - component: {fileID: 916035329}
   m_Layer: 5
-  m_Name: MenuButton (1)
+  m_Name: MenuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -286,7 +286,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2041032997}
-        m_MethodName: OpenStartMenu
+        m_MethodName: LoadStartMenuScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -528,7 +528,7 @@ PrefabInstance:
     - target: {fileID: 2089878365672052605, guid: 2c5aa2d324f223a4cae5798a0dc1c73f,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenMultiplayerScene
+      value: LoadMultiGame
       objectReference: {fileID: 0}
     - target: {fileID: 2089878366080083141, guid: 2c5aa2d324f223a4cae5798a0dc1c73f,
         type: 3}
@@ -571,6 +571,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -239.99998
+      objectReference: {fileID: 0}
+    - target: {fileID: 2089878365672052603, guid: 2c5aa2d324f223a4cae5798a0dc1c73f,
+        type: 3}
+      propertyPath: m_Name
+      value: MultiGameButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c5aa2d324f223a4cae5798a0dc1c73f, type: 3}

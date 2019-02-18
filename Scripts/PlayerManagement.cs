@@ -162,7 +162,7 @@ public class PlayerManagement : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene("MultiGame");
+            SceneManager.LoadScene("SoloGame");
         }
     }
 
@@ -380,6 +380,10 @@ public class PlayerManagement : MonoBehaviour
         }
     }
     public void RestartScene()
+    {
+        SceneManager.LoadScene("SoloGame");
+    }
+    public void LoadMultiGame()
     {
         SceneManager.LoadScene("MultiGame");
     }
