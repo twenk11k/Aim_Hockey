@@ -38,14 +38,14 @@ public class PlayerManagement : MonoBehaviour
     public Text winText;
     public GameObject restartCanvas;
     public Sprite belowArrow,aboveArrow;
-    public int aiPuckWaitTime = 2; 
+    public int aiPuckWaitTime = 2;
+    private float blockLeft_RightPosition, blockRight_LeftPosition;
 
     // Start is called before the first frame update
     void Start()
     {
-        blockY = blockLeft.transform.position.y;
-        blockLeft.transform.position = new Vector2(Random.Range(-11f, -9.5f), blockLeft.transform.position.y);
-        blockRight.transform.position = new Vector2(Random.Range(3f, 4.5f), blockLeft.transform.position.y);
+
+        SetupBlocks();
 
         totalSizePucksAbove = Random.Range(3, 5);
         totalSizePucksBelow = Random.Range(2, 4);
@@ -68,6 +68,30 @@ public class PlayerManagement : MonoBehaviour
         }
         ChoosePlayerBelow();
         ChoosePlayerAbove();
+    }
+
+    private void SetupBlocks()
+    {
+        blockY = blockLeft.transform.position.y;
+        blockLeft.transform.position = new Vector2(Random.Range(-11f, -9.5f), blockLeft.transform.position.y);
+        blockRight.transform.position = new Vector2(Random.Range(3f, 4.5f), blockLeft.transform.position.y);
+
+
+
+        float blockLeftWidth = blockLeft.GetComponent<SpriteRenderer>().bounds.size.x;
+        Vector3 blockLeft_Right = blockLeft.transform.position, topLeft = blockLeft.transform.position, bottomRight = blockLeft.transform.position, bottomLeft = blockLeft.transform.position;
+
+        blockLeft_Right.x += blockLeftWidth / 2;
+
+        Debug.Log("blockLeft_Right: " + blockLeft_Right.x);
+
+
+        float blockRightWidth = blockRight.GetComponent<SpriteRenderer>().bounds.size.x;
+        Vector3 blockRight_Left = blockRight.transform.position, topLeft2 = blockLeft.transform.position, bottomRight2 = blockLeft.transform.position, bottomLeft2 = blockLeft.transform.position;
+
+        blockRight_Left.x += blockRightWidth / 2;
+
+        Debug.Log("blockRight_Left: " + blockRight_Left.x);
     }
 
     private void ChoosePlayerBelow()
@@ -180,14 +204,14 @@ public class PlayerManagement : MonoBehaviour
                 StartCoroutine(SendPuck());
             } else
             {
-                Debug.Log("pickedplayer rotation: "+ pickedPlayerAbove.transform.rotation.z);
+             //   Debug.Log("pickedplayer rotation: "+ pickedPlayerAbove.transform.rotation.z);
                 if(pickedPlayerAbove.transform.rotation.z >= -0.92f && pickedPlayerAbove.transform.rotation.z <= 0.92f)
                 {
                     if(pickedPlayerAbove.transform.rotation.z >= -0.3f)
                     {
                         pickedPlayerAbove.transform.Rotate(0, 0, -Mathf.Clamp(pickedPlayerAbove.transform.position.x - (blockLeft.transform.position.x + blockRight.transform.position.x) / 2, -4, 4));
                         isReachedRight = true;
-                        Debug.Log("ifffffffffffffffffff");
+                   //     Debug.Log("ifffffffffffffffffff");
                     } else if(pickedPlayerAbove.transform.rotation.z <= -0.9)
                     {
                         pickedPlayerAbove.transform.Rotate(0, 0, Mathf.Clamp(pickedPlayerAbove.transform.position.x - (blockLeft.transform.position.x + blockRight.transform.position.x) / 2, -4, 4));
@@ -198,13 +222,13 @@ public class PlayerManagement : MonoBehaviour
                         if (isReachedRight)
                         {
                             pickedPlayerAbove.transform.Rotate(0, 0, - Mathf.Clamp(pickedPlayerAbove.transform.position.x - (blockLeft.transform.position.x + blockRight.transform.position.x) / 2, -4, 4));
-                            Debug.Log("elseifffffffff");
+                      //      Debug.Log("elseifffffffff");
 
                         }
                         else
                         {
                             pickedPlayerAbove.transform.Rotate(0, 0, Mathf.Clamp(pickedPlayerAbove.transform.position.x - (blockLeft.transform.position.x + blockRight.transform.position.x) / 2, -4, 4));
-                            Debug.Log("elselseeeeeeeeeeee");
+                         //   Debug.Log("elselseeeeeeeeeeee");
 
                         }
 
@@ -292,7 +316,7 @@ public class PlayerManagement : MonoBehaviour
                             {
                                 if (playerAboveList[z].GetComponent<Player>().transform.position.y >= blockY)
                                 {
-                                    Debug.Log("Girdi1.");
+                                  //  Debug.Log("Girdi1.");
                                     pickedPlayerAboveIndex = z;
                                     pickedPlayerAbove = playerAboveList[pickedPlayerAboveIndex].GetComponent<Player>();
                                     pickedPlayerAbove.arrow.SetActive(true);
@@ -314,7 +338,7 @@ public class PlayerManagement : MonoBehaviour
                         bool isFirst = true;
                         if (playerAboveList[i + 1].GetComponent<Player>().transform.position.y >= blockY)
                         {
-                            Debug.Log("Girdi2");
+                          //  Debug.Log("Girdi2");
                             pickedPlayerAboveIndex = i + 1;
                             pickedPlayerAbove = playerAboveList[pickedPlayerAboveIndex].GetComponent<Player>();
                             pickedPlayerAbove.arrow.SetActive(true);
@@ -330,7 +354,7 @@ public class PlayerManagement : MonoBehaviour
                                 {
                                     if (playerAboveList[k].GetComponent<Player>().transform.position.y >= blockY)
                                     {
-                                        Debug.Log("Girdi3.");
+                                    //    Debug.Log("Girdi3.");
                                         pickedPlayerAboveIndex = k;
 
                                         pickedPlayerAbove = playerAboveList[pickedPlayerAboveIndex].GetComponent<Player>();
@@ -575,8 +599,8 @@ public class PlayerManagement : MonoBehaviour
         isCoroutineStarted = true;
 
         yield return new WaitForSeconds(Random.Range(1,aiPuckWaitTime));
-        Debug.Log("blockLeft: "+blockLeft.transform.position.x);
-        Debug.Log("blockRight: " + blockRight.transform.position.x);
+     //   Debug.Log("blockLeft: "+blockLeft.transform.position.x);
+     //   Debug.Log("blockRight: " + blockRight.transform.position.x);
 
         isCoroutineStarted = false;
         LaunchAI();
