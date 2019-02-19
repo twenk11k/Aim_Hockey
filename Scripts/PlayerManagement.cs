@@ -181,14 +181,14 @@ public class PlayerManagement : MonoBehaviour
             } else
             {
                 Debug.Log("pickedplayer rotation: "+ pickedPlayerAbove.transform.rotation.z);
-                if(pickedPlayerAbove.transform.rotation.z >= -1f && pickedPlayerAbove.transform.rotation.z <= 1f)
+                if(pickedPlayerAbove.transform.rotation.z >= -0.92f && pickedPlayerAbove.transform.rotation.z <= 0.92f)
                 {
-                    if(pickedPlayerAbove.transform.rotation.z >= 0f && pickedPlayerAbove.transform.rotation.z <= 0.05f)
+                    if(pickedPlayerAbove.transform.rotation.z >= -0.3f)
                     {
                         pickedPlayerAbove.transform.Rotate(0, 0, -Mathf.Clamp(pickedPlayerAbove.transform.position.x - (blockLeft.transform.position.x + blockRight.transform.position.x) / 2, -4, 4));
                         isReachedRight = true;
                         Debug.Log("ifffffffffffffffffff");
-                    } else if(pickedPlayerAbove.transform.rotation.z >= 0.9f)
+                    } else if(pickedPlayerAbove.transform.rotation.z <= -0.9)
                     {
                         pickedPlayerAbove.transform.Rotate(0, 0, Mathf.Clamp(pickedPlayerAbove.transform.position.x - (blockLeft.transform.position.x + blockRight.transform.position.x) / 2, -4, 4));
                         isReachedRight = false;
