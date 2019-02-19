@@ -73,6 +73,7 @@ public class PlayerManagement : MonoBehaviour
     private void SetupBlocks()
     {
         blockY = blockLeft.transform.position.y;
+
         blockLeft.transform.position = new Vector2(Random.Range(-11f, -9.5f), blockLeft.transform.position.y);
         blockRight.transform.position = new Vector2(Random.Range(3f, 4.5f), blockLeft.transform.position.y);
 
