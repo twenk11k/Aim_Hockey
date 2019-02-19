@@ -37,6 +37,7 @@ public class PlayersMulti : MonoBehaviour
 
     public Text winText;
     public GameObject restartCanvas;
+    public Sprite belowArrow, aboveArrow;
 
     // Start is called before the first frame update
     void Start()
@@ -192,6 +193,8 @@ public class PlayersMulti : MonoBehaviour
                 playerBelowList.RemoveAt(i);
 
                 playerBelowObj.GetComponent<Player>().RotatePlayer(false, 180);
+                playerBelowObj.transform.Find("Arrow").GetComponent<SpriteRenderer>().sprite = aboveArrow;
+
                 playerAboveList.Add(playerBelowObj);
             }
         }
@@ -387,6 +390,8 @@ public class PlayersMulti : MonoBehaviour
                 GameObject playerAboveObj = playerAboveList[i];
                 playerAboveList.RemoveAt(i);
                 playerAboveObj.GetComponent<Player>().RotatePlayer(true, 180);
+                playerAboveObj.transform.Find("Arrow").GetComponent<SpriteRenderer>().sprite = belowArrow;
+
                 playerBelowList.Add(playerAboveObj);
             }
         }

@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb863d6bb5771d4fbf737ebe3aabe97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAbove: {fileID: 2232240821262404299, guid: 55cd1990bd98c0247a0d0aac8a8676c1,
+  playerAbove: {fileID: 8860330959256501495, guid: 47d24ef369e3b234497a95b2b330f6b5,
     type: 3}
   playerBelow: {fileID: 2232240821262404299, guid: 55cd1990bd98c0247a0d0aac8a8676c1,
     type: 3}
@@ -165,6 +165,8 @@ MonoBehaviour:
   blockRight: {fileID: 1559923830}
   winText: {fileID: 1823954432}
   restartCanvas: {fileID: 1406019532}
+  belowArrow: {fileID: 21300000, guid: 19acb9b01463cb841b30f552238e65d2, type: 3}
+  aboveArrow: {fileID: 21300000, guid: e11b3d9cd2eb3d84f8638964f2cad272, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,6 +463,12 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2089878366341155068, guid: 2c5aa2d324f223a4cae5798a0dc1c73f,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 597bf266b46e9004098a12df3105775d,
+        type: 3}
     - target: {fileID: 2089878365982944536, guid: 2c5aa2d324f223a4cae5798a0dc1c73f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -586,12 +594,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RestartScene
       objectReference: {fileID: 0}
-    - target: {fileID: 2089878366341155068, guid: 2c5aa2d324f223a4cae5798a0dc1c73f,
-        type: 3}
-      propertyPath: m_FontData.m_Font
-      value: 
-      objectReference: {fileID: 12800000, guid: 597bf266b46e9004098a12df3105775d,
-        type: 3}
     - target: {fileID: 2089878366234770605, guid: 2c5aa2d324f223a4cae5798a0dc1c73f,
         type: 3}
       propertyPath: m_FontData.m_Font
