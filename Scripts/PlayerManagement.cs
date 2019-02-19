@@ -165,7 +165,7 @@ public class PlayerManagement : MonoBehaviour
             SceneManager.LoadScene("SoloGame");
         }
     }
-
+    bool isReachedRight = false;
     private void UpdateAbove()
     {
         if (isAllPucksBelowBlock())
@@ -180,7 +180,37 @@ public class PlayerManagement : MonoBehaviour
                 StartCoroutine(SendPuck());
             } else
             {
-                pickedPlayerAbove.transform.Rotate(0, 0,Mathf.Clamp(pickedPlayerAbove.transform.position.x - (blockLeft.transform.position.x + blockRight.transform.position.x)/2,-4,4));
+                Debug.Log("pickedplayer rotation: "+ pickedPlayerAbove.transform.rotation.z);
+                if(pickedPlayerAbove.transform.rotation.z >= -1f && pickedPlayerAbove.transform.rotation.z <= 1f)
+                {
+                    if(pickedPlayerAbove.transform.rotation.z >= 0f && pickedPlayerAbove.transform.rotation.z <= 0.05f)
+                    {
+                        pickedPlayerAbove.transform.Rotate(0, 0, -Mathf.Clamp(pickedPlayerAbove.transform.position.x - (blockLeft.transform.position.x + blockRight.transform.position.x) / 2, -4, 4));
+                        isReachedRight = true;
+                        Debug.Log("ifffffffffffffffffff");
+                    } else if(pickedPlayerAbove.transform.rotation.z >= 0.9f)
+                    {
+                        pickedPlayerAbove.transform.Rotate(0, 0, Mathf.Clamp(pickedPlayerAbove.transform.position.x - (blockLeft.transform.position.x + blockRight.transform.position.x) / 2, -4, 4));
+                        isReachedRight = false;
+                    } 
+                    else
+                    {
+                        if (isReachedRight)
+                        {
+                            pickedPlayerAbove.transform.Rotate(0, 0, - Mathf.Clamp(pickedPlayerAbove.transform.position.x - (blockLeft.transform.position.x + blockRight.transform.position.x) / 2, -4, 4));
+                            Debug.Log("elseifffffffff");
+
+                        }
+                        else
+                        {
+                            pickedPlayerAbove.transform.Rotate(0, 0, Mathf.Clamp(pickedPlayerAbove.transform.position.x - (blockLeft.transform.position.x + blockRight.transform.position.x) / 2, -4, 4));
+                            Debug.Log("elselseeeeeeeeeeee");
+
+                        }
+
+                    }
+
+                }
             }
 
             if (pickedPlayerAbove.arrow.activeSelf)
@@ -544,7 +574,7 @@ public class PlayerManagement : MonoBehaviour
     {
         isCoroutineStarted = true;
 
-        yield return new WaitForSeconds(aiPuckWaitTime);
+        yield return new WaitForSeconds(Random.Range(1,aiPuckWaitTime));
         Debug.Log("blockLeft: "+blockLeft.transform.position.x);
         Debug.Log("blockRight: " + blockRight.transform.position.x);
 
