@@ -14,6 +14,7 @@ public class Ball : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
     }
 

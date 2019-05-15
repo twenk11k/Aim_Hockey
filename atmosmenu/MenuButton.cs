@@ -20,15 +20,12 @@ public class MenuButton : MonoBehaviour
     private void OpenFirst()
     {
         animator.SetTrigger("openFirst");
-      //  animator.SetBool("selected", true);
 
     }
 
     public void TriggerAnimation()
     {
-        //  animator.SetBool("selected",true);
         PlaySound();
-
     }
 
     public void SetDeselect()

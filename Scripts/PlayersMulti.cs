@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-public class PlayersMulti : MonoBehaviour
-{
 
+public class PlayersMulti : MonoBehaviour
+
+{
     public GameObject playerAbove,playerBelow;
     int totalSizePucksAbove;
     int totalSizePucksBelow;
@@ -173,7 +174,7 @@ public class PlayersMulti : MonoBehaviour
 
         } else
         {
-            LaunchOnMouseClickAndTouchAbove();
+            LaunchOnTouchAbove();
 
             if (pickedPlayerAbove.arrow.activeSelf)
             {
@@ -277,7 +278,6 @@ public class PlayersMulti : MonoBehaviour
                             bool isFirst = true;
                             if (playerAboveList[i+1].GetComponent<Player>().transform.position.y >= blockY)
                             {
-                            // Debug.Log("Girdi2");
                             pickedPlayerAboveIndex = i + 1;
                             pickedPlayerAbove = playerAboveList[pickedPlayerAboveIndex].GetComponent<Player>();
                                 pickedPlayerAbove.arrow.SetActive(true);
@@ -293,7 +293,6 @@ public class PlayersMulti : MonoBehaviour
                                     {
                                         if (playerAboveList[k].GetComponent<Player>().transform.position.y >= blockY)
                                         {
-                                         //     Debug.Log("Girdi3.");
                                         pickedPlayerAboveIndex = k;
 
                                         pickedPlayerAbove = playerAboveList[pickedPlayerAboveIndex].GetComponent<Player>();
@@ -342,7 +341,7 @@ public class PlayersMulti : MonoBehaviour
             finishGame(true);
         } else
         {
-                LaunchOnMouseClickAndTouchBelow();
+                LaunchOnTouchBelow();
                 if (pickedPlayerBelow.arrow.activeSelf)
                 {
                     TouchControl(pickedPlayerBelow, true);
@@ -451,7 +450,6 @@ public class PlayersMulti : MonoBehaviour
                             {
                                 if (playerBelowList[z].GetComponent<Player>().transform.position.y < blockY)
                                 {
-                                  //  Debug.Log("Girdi1.");
                                     pickedPlayerBelowIndex = z;
                                     pickedPlayerBelow = playerBelowList[pickedPlayerBelowIndex].GetComponent<Player>();
                                     pickedPlayerBelow.arrow.SetActive(true);
@@ -473,7 +471,6 @@ public class PlayersMulti : MonoBehaviour
                         bool isFirst = true;
                         if (playerBelowList[i + 1].GetComponent<Player>().transform.position.y < blockY)
                         {
-                         //   Debug.Log("Girdi2");
                             pickedPlayerBelowIndex = i + 1;
                             pickedPlayerBelow = playerBelowList[pickedPlayerBelowIndex].GetComponent<Player>();
                             pickedPlayerBelow.arrow.SetActive(true);
@@ -489,7 +486,6 @@ public class PlayersMulti : MonoBehaviour
                                 {
                                     if (playerBelowList[k].GetComponent<Player>().transform.position.y < blockY)
                                     {
-                                   //     Debug.Log("Girdi3.");
                                         pickedPlayerBelowIndex = k;
                                         pickedPlayerBelow = playerBelowList[pickedPlayerBelowIndex].GetComponent<Player>();
                                         pickedPlayerBelow.arrow.SetActive(true);
@@ -532,13 +528,10 @@ public class PlayersMulti : MonoBehaviour
 
 
 
-
-
-    private void LaunchOnMouseClickAndTouchAbove()
+    private void LaunchOnTouchAbove()
     {
         Rect bounds;
         bounds = new Rect(0, Screen.height / 2, Screen.width, Screen.height / 2);
-
 
         // Touch
         if (Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetTouch(0).phase == TouchPhase.Canceled) && bounds.Contains(Input.mousePosition))
@@ -553,7 +546,6 @@ public class PlayersMulti : MonoBehaviour
                     float fY = Mathf.Cos(fRotation);
                     Vector2 v2 = new Vector2(fY * 10, fX * 10);
                     pickedPlayerAbove.rb.velocity = v2;
-                    // Debug.Log("e geldi 1");
 
                     pickedPlayerAbove.arrow.SetActive(false);
 
@@ -578,7 +570,6 @@ public class PlayersMulti : MonoBehaviour
                     Vector2 v2 = new Vector2(fY * 10, fX * 10);
 
                     pickedPlayerAbove.rb.velocity = v2;
-                    //  Debug.Log("e geldi 2");
 
                     pickedPlayerAbove.arrow.SetActive(false);
                     PickNewPlayerAbove();
@@ -596,7 +587,7 @@ public class PlayersMulti : MonoBehaviour
 
     }
 
-    private void LaunchOnMouseClickAndTouchBelow()
+    private void LaunchOnTouchBelow()
     {
         Rect bounds = new Rect(0, blockY, Screen.width, Screen.height / 2);
 
@@ -614,8 +605,6 @@ public class PlayersMulti : MonoBehaviour
                     float fY = Mathf.Cos(fRotation);
                     Vector2 v2 = new Vector2(fY * 10, fX * 10);
                     pickedPlayerBelow.rb.velocity = v2;
-                    //  Debug.Log("e geldi 1");
-
                     pickedPlayerBelow.arrow.SetActive(false);
 
                     hasStartedBelow = true;
@@ -625,8 +614,6 @@ public class PlayersMulti : MonoBehaviour
                 }
                 else
                 {
-                    //  Debug.Log("e geldi 2");
-
                     isMovedBelow = false;
                 }
 
@@ -641,7 +628,6 @@ public class PlayersMulti : MonoBehaviour
                     Vector2 v2 = new Vector2(fY * 10, fX * 10);
 
                     pickedPlayerBelow.rb.velocity = v2;
-                    //    Debug.Log("e geldi 3");
 
                     pickedPlayerBelow.arrow.SetActive(false);
                     PickNewPlayerBelow();
@@ -652,7 +638,6 @@ public class PlayersMulti : MonoBehaviour
                     pickedPlayerBelow.rb.velocity = new Vector2(0, 0);
                     pickedPlayerBelow.arrow.SetActive(true);
                 }
-                // Debug.Log("e geldi 4");
 
                 hasStartedBelow = false;
             }
@@ -685,7 +670,6 @@ public class PlayersMulti : MonoBehaviour
             else
             {
                 zVal = - Mathf.Clamp(touchDeltaPosition.x, -1, 1) * turnSpeed * Time.deltaTime;
-              //  Debug.Log("z degeri: "+zVal.ToString());
             }
             secilmisPlayer.transform.Rotate(0, 0,zVal);
             if (isSolo)
